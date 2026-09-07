@@ -1,0 +1,2037 @@
+/* =========================================================
+   THE LIBRARY — LIBRARY PAGE
+   CLEANED + CONSOLIDATED VERSION
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: auto;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    height: auto;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    color: #f8f3ea;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 28%,
+            rgba(118, 72, 39, 0.38) 0%,
+            rgba(67, 37, 22, 0.28) 35%,
+            transparent 68%
+        ),
+        radial-gradient(
+            ellipse at 15% 65%,
+            rgba(135, 82, 42, 0.12),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 88% 62%,
+            rgba(135, 82, 42, 0.10),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            #24140d 0%,
+            #3a2115 42%,
+            #2b180f 100%
+        );
+
+    background-attachment: fixed;
+
+    animation: fadeIn 0.7s ease;
+}
+
+
+/* =========================================================
+   BACKGROUND OVERLAY
+========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   SUBTLE DUST / LIGHT PARTICLES
+========================================================= */
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    background-image:
+
+        radial-gradient(
+            circle at 8% 22%,
+            rgba(255, 221, 164, 0.30) 0px,
+            rgba(255, 221, 164, 0.30) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 19% 71%,
+            rgba(255, 226, 177, 0.22) 0px,
+            rgba(255, 226, 177, 0.22) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 31% 38%,
+            rgba(255, 218, 157, 0.24) 0px,
+            rgba(255, 218, 157, 0.24) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 47% 18%,
+            rgba(255, 225, 175, 0.25) 0px,
+            rgba(255, 225, 175, 0.25) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 62% 67%,
+            rgba(255, 220, 162, 0.20) 0px,
+            rgba(255, 220, 162, 0.20) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 76% 31%,
+            rgba(255, 226, 178, 0.28) 0px,
+            rgba(255, 226, 178, 0.28) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 89% 78%,
+            rgba(255, 218, 157, 0.20) 0px,
+            rgba(255, 218, 157, 0.20) 1px,
+            transparent 2px
+        ),
+
+        radial-gradient(
+            circle at 94% 16%,
+            rgba(255, 229, 182, 0.24) 0px,
+            rgba(255, 229, 182, 0.24) 1px,
+            transparent 2px
+        );
+
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    text-align: center;
+
+    padding-top: 40px;
+
+    position: relative;
+    z-index: 2;
+}
+
+header h1 {
+    font-size: 4.5rem;
+
+    color: #f4e8d3;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.40);
+}
+
+.divider {
+    width: 140px;
+    height: 3px;
+
+    background: #c79b63;
+
+    margin: 18px auto 0;
+
+    box-shadow:
+        0 0 10px rgba(199, 155, 99, 0.18);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 40px;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================================
+   SIDE PANELS
+========================================================= */
+
+.left-panel,
+.right-panel {
+    position: fixed;
+
+    top: 150px;
+
+    width: 220px;
+
+    z-index: 10;
+}
+
+.left-panel {
+    left: 20px;
+}
+
+.right-panel {
+    right: 20px;
+}
+
+
+/* =========================================================
+   QUOTE + NOTE CARDS
+========================================================= */
+
+.quote-card,
+.note-card {
+    background: #dfccb0;
+
+    color: #523c2d;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    line-height: 1.8;
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 238, 202, 0.25);
+}
+
+.note-card {
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   HOW TO USE BUTTON
+========================================================= */
+
+.info-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #b78956;
+
+    color: white;
+
+    margin-bottom: 18px;
+
+    cursor: pointer;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.info-btn:hover {
+    background: #d6a56b;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BOOKSHELF
+========================================================= */
+
+.bookshelf {
+    width: 1100px;
+
+    max-width: 70%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #55351f,
+            #432817
+        );
+
+    border-radius: 18px;
+
+    padding: 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 35px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 210, 145, 0.08);
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   SHELVES
+========================================================= */
+
+.shelf {
+    background:
+        radial-gradient(
+            ellipse at 50% 78%,
+            rgba(190, 124, 58, 0.16),
+            transparent 58%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(130, 78, 42, 0.96),
+            rgba(105, 60, 32, 0.98) 72%,
+            rgba(68, 37, 20, 1)
+        );
+
+    border-radius: 8px;
+
+    padding: 18px 18px 12px;
+
+    min-height: 230px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 3px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-top:
+        1px solid rgba(220, 166, 96, 0.18);
+
+    border-bottom:
+        4px solid rgba(42, 22, 12, 0.65);
+
+    box-shadow:
+        inset 0 3px 8px rgba(255, 204, 135, 0.09),
+        inset 0 -12px 18px rgba(27, 13, 7, 0.38),
+        0 7px 15px rgba(0, 0, 0, 0.28);
+
+    filter:
+        contrast(1.03)
+        saturate(0.96);
+}
+
+
+/* polished top highlight */
+
+.shelf::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(224, 173, 103, 0.13) 20%,
+            rgba(224, 173, 103, 0.08) 50%,
+            rgba(224, 173, 103, 0.13) 80%,
+            transparent 100%
+        );
+
+    opacity: 0.7;
+
+    pointer-events: none;
+}
+
+
+/* darker space underneath */
+
+.shelf::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    height: 18px;
+
+    background: #3d2415;
+
+    border-radius: 0 0 8px 8px;
+
+    pointer-events: none;
+}
+
+
+/* stronger separation between shelves */
+
+.shelf + .shelf {
+    box-shadow:
+        inset 0 3px 8px rgba(255, 204, 135, 0.08),
+        inset 0 -13px 20px rgba(25, 12, 6, 0.40),
+        0 8px 18px rgba(0, 0, 0, 0.30);
+}
+
+/* =========================================================
+   BOOKS
+========================================================= */
+
+.book {
+
+    width: 48px;
+
+    height: 185px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    writing-mode: vertical-rl;
+
+    /*
+       Keeps the date readable vertically.
+       IMPORTANT:
+       This is the normal orientation only.
+    */
+    transform: rotate(180deg);
+
+    color: #f0d48b;
+
+    font-size: 0.8rem;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    border-radius: 5px 3px 3px 5px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    box-shadow:
+        inset 2px 0 4px rgba(255, 255, 255, 0.07),
+        inset -4px 0 7px rgba(0, 0, 0, 0.22),
+        2px 3px 7px rgba(0, 0, 0, 0.30);
+
+    filter:
+        saturate(0.96)
+        contrast(1.04);
+
+    text-shadow:
+        1px 1px 2px rgba(40, 20, 8, 0.85),
+        0 0 3px rgba(235, 194, 112, 0.12);
+}
+
+
+/* different book heights */
+
+.book:nth-child(2n) {
+    height: 180px;
+}
+
+.book:nth-child(3n) {
+    height: 195px;
+}
+
+.book:nth-child(5n) {
+    height: 170px;
+}
+
+
+/* =========================================================
+   BOOK HOVER
+   NO ROTATION
+========================================================= */
+
+.book:hover {
+
+    /*
+       IMPORTANT:
+       Books only slide upward.
+       They do NOT rotate.
+    */
+    transform: translateY(-12px);
+
+    z-index: 10;
+
+    box-shadow:
+        inset 2px 0 4px rgba(255, 255, 255, 0.08),
+        inset -4px 0 7px rgba(0, 0, 0, 0.18),
+        0 15px 22px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   BOOK DECORATIVE LEATHER DETAILS
+========================================================= */
+
+.book::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 4px;
+    right: 4px;
+
+    top: 7px;
+    bottom: 7px;
+
+    border-top:
+        1px solid rgba(235, 198, 126, 0.32);
+
+    border-bottom:
+        1px solid rgba(235, 198, 126, 0.22);
+
+    opacity: 0.8;
+
+    pointer-events: none;
+}
+
+
+.book::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 12px;
+    bottom: 12px;
+
+    left: 4px;
+
+    width: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255, 220, 150, 0.22),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOOK COLORS
+========================================================= */
+
+.burgundy {
+    background: #6f2428;
+}
+
+.green {
+    background: #2f4c37;
+}
+
+.blue {
+    background: #2c4568;
+}
+
+.brown {
+    background: #6c4b30;
+}
+
+.plum {
+    background: #52365f;
+}
+
+.special {
+    background:
+        linear-gradient(
+            180deg,
+            #b1844c,
+            #8b6135
+        );
+
+    color: #ffe7ad;
+
+    box-shadow:
+        inset 2px 0 5px rgba(255, 231, 173, 0.10),
+        inset -4px 0 8px rgba(0, 0, 0, 0.22),
+        2px 3px 9px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table {
+
+    margin-top: 30px;
+
+    width: 100%;
+
+    height: 70px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(112, 67, 36, 0.95),
+            rgba(72, 40, 22, 0.98)
+        );
+
+    border-radius: 10px;
+
+    box-shadow:
+        inset 0 2px 5px rgba(255, 210, 145, 0.10),
+        inset 0 -10px 18px rgba(25, 12, 6, 0.30),
+        0 12px 26px rgba(0, 0, 0, 0.32);
+}
+
+
+/* subtle wood grain */
+
+.table::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            8deg,
+            transparent 0px,
+            transparent 13px,
+            rgba(225, 170, 100, 0.045) 14px,
+            transparent 16px
+        );
+
+    opacity: 0.8;
+
+    pointer-events: none;
+
+    border-radius: 10px;
+}
+
+
+/* polished wood edge */
+
+.table::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 3%;
+    right: 3%;
+
+    top: 4px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(231, 190, 124, 0.28),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LAMP
+========================================================= */
+
+.lamp {
+
+    width: 28px;
+
+    height: 28px;
+
+    background: #d5b16f;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    left: 22px;
+
+    top: 20px;
+
+    z-index: 2;
+
+    box-shadow:
+        0 0 18px rgba(255, 220, 120, 0.55);
+}
+
+
+/* warm lamp glow */
+
+.lamp::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+
+    height: 280px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 215, 145, 0.28) 0%,
+            rgba(255, 190, 110, 0.12) 35%,
+            rgba(255, 170, 90, 0.04) 60%,
+            transparent 75%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+.clock {
+
+    width: 42px;
+
+    height: 42px;
+
+    border:
+        4px solid #d8c5a8;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    right: 18px;
+
+    top: 14px;
+
+    background:
+        rgba(30, 18, 11, 0.15);
+
+    box-shadow:
+        inset 0 0 5px rgba(0, 0, 0, 0.25),
+        0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   BOTTOM DECORATION CONTAINERS
+========================================================= */
+
+.bottom-left {
+
+    position: fixed;
+
+    left: 35px;
+
+    bottom: 35px;
+
+    z-index: 5;
+}
+
+
+.bottom-right {
+
+    position: fixed;
+
+    right: 35px;
+
+    bottom: 35px;
+
+    text-align: center;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    text-align: center;
+
+    margin: 50px 0;
+
+    color: #d4c1aa;
+
+    font-style: italic;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+/* =========================================================
+   LETTER OVERLAY
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+.letter-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background:
+        rgba(12, 7, 4, 0.76);
+
+    animation:
+        overlayAppear 0.3s ease;
+}
+
+
+.letter-overlay.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   VINTAGE LETTER PAPER
+========================================================= */
+
+.letter-popup {
+
+    width: 820px;
+
+    max-width: 95%;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    padding: 70px 80px;
+
+    border: none;
+
+    border-radius: 4px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #f8edda 0%,
+            #f1dfbd 65%,
+            #d9bd91 100%
+        );
+
+    color: #493326;
+
+    text-align: center;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.70),
+        inset 0 0 45px rgba(111, 75, 42, 0.18);
+
+    /*
+       Softly irregular paper edge.
+       Kept simple so long letters remain usable.
+    */
+    clip-path: polygon(
+        0% 2%,
+        4% 1%,
+        8% 2%,
+        12% 1%,
+        16% 2%,
+        20% 1%,
+        24% 2%,
+        28% 1%,
+        32% 2%,
+        36% 1%,
+        40% 2%,
+        44% 1%,
+        48% 2%,
+        52% 1%,
+        56% 2%,
+        60% 1%,
+        64% 2%,
+        68% 1%,
+        72% 2%,
+        76% 1%,
+        80% 2%,
+        84% 1%,
+        88% 2%,
+        92% 1%,
+        96% 2%,
+        100% 1%,
+
+        99% 12%,
+        100% 24%,
+        99% 36%,
+        100% 48%,
+        99% 60%,
+        100% 72%,
+        99% 84%,
+        100% 99%,
+
+        96% 98%,
+        92% 99%,
+        88% 98%,
+        84% 99%,
+        80% 98%,
+        76% 99%,
+        72% 98%,
+        68% 99%,
+        64% 98%,
+        60% 99%,
+        56% 98%,
+        52% 99%,
+        48% 98%,
+        44% 99%,
+        40% 98%,
+        36% 99%,
+        32% 98%,
+        28% 99%,
+        24% 98%,
+        20% 99%,
+        16% 98%,
+        12% 99%,
+        8% 98%,
+        4% 99%,
+        0% 98%,
+
+        1% 86%,
+        0% 72%,
+        1% 58%,
+        0% 44%,
+        1% 30%,
+        0% 16%
+    );
+
+    animation:
+        letterOpen 0.45s ease;
+}
+
+
+/* =========================================================
+   LETTER SCROLLBAR — HIDDEN
+========================================================= */
+
+.letter-popup {
+
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+}
+
+
+.letter-popup::-webkit-scrollbar {
+
+    display: none;
+
+    width: 0;
+    height: 0;
+}
+
+
+/* =========================================================
+   LETTER ANIMATIONS
+========================================================= */
+
+@keyframes overlayAppear {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes letterOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.82)
+            translateY(30px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   CLOSE LETTER BUTTON
+========================================================= */
+
+.close-letter {
+
+    position: absolute;
+
+    top: 25px;
+
+    right: 30px;
+
+    width: 40px;
+
+    min-width: 40px;
+
+    height: 40px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #76543b;
+
+    font-family: Georgia, serif;
+
+    font-size: 2rem;
+
+    line-height: 40px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+
+    z-index: 2;
+}
+
+
+.close-letter:hover {
+
+    background:
+        rgba(80, 50, 30, 0.10);
+
+    color: #4f3423;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   LETTER TEXT
+========================================================= */
+
+.letter-date {
+
+    color: #806044;
+
+    font-size: 1rem;
+
+    margin-bottom: 18px;
+
+    font-style: italic;
+
+    letter-spacing: 1px;
+}
+
+
+.letter-popup h2 {
+
+    font-size: 2.4rem;
+
+    font-weight: normal;
+
+    margin-bottom: 35px;
+
+    color: #4b3020;
+}
+
+
+.letter-content {
+
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    text-align: left;
+
+    font-size: 1.15rem;
+
+    line-height: 2;
+
+    color: #4b3628;
+}
+
+
+.letter-content p {
+
+    margin-bottom: 22px;
+}
+
+/* =========================================================
+   RULES OF THE LIBRARY
+========================================================= */
+
+.rules-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9998;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background:
+        rgba(12, 7, 4, 0.68);
+
+    animation:
+        rulesOverlayAppear 0.3s ease;
+}
+
+
+.rules-overlay.hidden {
+
+    display: none !important;
+}
+
+
+/* =========================================================
+   RULES CARD
+========================================================= */
+
+.rules-card {
+
+    position: relative;
+
+    width: 520px;
+
+    max-width: 92%;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    padding: 55px 65px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #f7ecd8 0%,
+            #efdfc1 65%,
+            #d9bd91 100%
+        );
+
+    color: #493326;
+
+    text-align: left;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.60),
+        inset 0 0 35px rgba(111, 75, 42, 0.15);
+
+    animation:
+        rulesCardOpen 0.4s ease;
+
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+}
+
+
+.rules-card::-webkit-scrollbar {
+
+    display: none;
+
+    width: 0;
+}
+
+
+/* =========================================================
+   INNER BORDER
+========================================================= */
+
+.rules-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 13px;
+
+    border:
+        1px solid rgba(111, 76, 43, 0.18);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RULES HEADING
+========================================================= */
+
+.rules-heading {
+
+    margin: 0;
+
+    text-align: center;
+
+    font-family: Georgia, serif;
+
+    font-size: 2rem;
+
+    color: #4b3020;
+}
+
+
+/* =========================================================
+   RULES DIVIDER
+========================================================= */
+
+.rules-divider {
+
+    width: 70px;
+
+    height: 1px;
+
+    margin: 18px auto 30px;
+
+    background:
+        rgba(111, 76, 43, 0.35);
+}
+
+
+/* =========================================================
+   RULES
+========================================================= */
+
+.rule {
+
+    display: grid;
+
+    grid-template-columns: 55px 1fr;
+
+    column-gap: 15px;
+
+    margin: 20px 0;
+
+    font-family: Georgia, serif;
+
+    font-size: 1.05rem;
+
+    line-height: 1.8;
+
+    color: #554033;
+}
+
+
+.rule span {
+
+    width: auto;
+
+    text-align: left;
+
+    color: #806044;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   CLOSE RULES BUTTON
+========================================================= */
+
+.close-rules {
+
+    position: absolute;
+
+    top: 18px;
+
+    right: 22px;
+
+    width: 35px;
+
+    min-width: 35px;
+
+    height: 35px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #76543b;
+
+    font-family: Georgia, serif;
+
+    font-size: 1.8rem;
+
+    line-height: 35px;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+.close-rules:hover {
+
+    background:
+        rgba(80, 50, 30, 0.10);
+
+    color: #4f3423;
+}
+
+
+/* =========================================================
+   RULES ANIMATIONS
+========================================================= */
+
+@keyframes rulesOverlayAppear {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes rulesCardOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.9)
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+/* =========================================================
+   GENERAL BUTTON RESET
+========================================================= */
+
+/*
+   Only the library buttons that need styling are defined
+   individually above. This prevents global button rules
+   from accidentally changing popup close buttons.
+*/
+
+
+/* =========================================================
+   FADE-IN
+========================================================= */
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: none;
+    }
+}
+
+
+/* =========================================================
+   DESKTOP LAYOUT REFINEMENT
+========================================================= */
+
+@media (min-width: 1301px) {
+
+    .bookshelf {
+
+        /*
+           Give the bookshelf more room while preserving
+           the side panels.
+        */
+        width: min(1100px, calc(100vw - 500px));
+
+        max-width: calc(100vw - 500px);
+    }
+}
+
+
+/* =========================================================
+   MEDIUM SCREEN
+========================================================= */
+
+@media (max-width: 1300px) {
+
+    .left-panel,
+    .right-panel {
+
+        display: none;
+    }
+
+    .bookshelf {
+
+        width: 95%;
+
+        max-width: 95%;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    header h1 {
+
+        font-size: 3.7rem;
+    }
+
+    .bookshelf {
+
+        padding: 30px;
+
+        gap: 30px;
+    }
+
+    .shelf {
+
+        min-height: 220px;
+
+        padding:
+            18px 14px 12px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    header {
+
+        padding-top: 25px;
+    }
+
+    header h1 {
+
+        font-size: 3rem;
+
+        letter-spacing: 2px;
+    }
+
+    .divider {
+
+        width: 100px;
+    }
+
+    main {
+
+        margin-top: 30px;
+    }
+
+    .bookshelf {
+
+        width: 95%;
+
+        max-width: 95%;
+
+        padding: 20px;
+
+        gap: 25px;
+    }
+
+    .shelf {
+
+        min-height: 215px;
+
+        overflow-x: auto;
+
+        overflow-y: hidden;
+
+        padding:
+            18px 14px 12px;
+
+        scrollbar-width: thin;
+    }
+
+    .book {
+
+        flex: 0 0 48px;
+    }
+
+    footer {
+
+        margin:
+            40px 0 30px;
+    }
+
+    .letter-overlay {
+
+        padding: 15px;
+    }
+
+    .letter-popup {
+
+        width: 95%;
+
+        max-width: 95%;
+
+        max-height: 88vh;
+
+        padding:
+            55px 35px;
+    }
+
+    .letter-popup h2 {
+
+        font-size: 2rem;
+
+        margin-bottom: 25px;
+    }
+
+    .letter-content {
+
+        font-size: 1.05rem;
+
+        line-height: 1.85;
+    }
+
+    .rules-overlay {
+
+        padding: 15px;
+    }
+
+    .rules-card {
+
+        width: 95%;
+
+        max-width: 95%;
+
+        padding:
+            45px 35px;
+    }
+
+    .rules-heading {
+
+        font-size: 1.7rem;
+    }
+
+    .rule {
+
+        grid-template-columns:
+            42px 1fr;
+
+        column-gap: 10px;
+
+        font-size: 0.98rem;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    header h1 {
+
+        font-size: 2.5rem;
+
+        letter-spacing: 1px;
+    }
+
+    .bookshelf {
+
+        padding: 15px;
+
+        border-radius: 12px;
+    }
+
+    .shelf {
+
+        min-height: 205px;
+
+        padding:
+            16px 10px 10px;
+
+        gap: 3px;
+    }
+
+    .book {
+
+        width: 44px;
+
+        flex-basis: 44px;
+
+        font-size: 0.72rem;
+    }
+
+    .book:nth-child(2n) {
+
+        height: 175px;
+    }
+
+    .book:nth-child(3n) {
+
+        height: 188px;
+    }
+
+    .book:nth-child(5n) {
+
+        height: 166px;
+    }
+
+    .letter-popup {
+
+        padding:
+            50px 25px;
+    }
+
+    .close-letter {
+
+        top: 17px;
+
+        right: 18px;
+    }
+
+    .letter-popup h2 {
+
+        font-size: 1.75rem;
+    }
+
+    .letter-content {
+
+        font-size: 1rem;
+
+        line-height: 1.75;
+    }
+
+    .rules-card {
+
+        padding:
+            45px 25px;
+    }
+
+    .rule {
+
+        grid-template-columns:
+            35px 1fr;
+
+        column-gap: 8px;
+
+        font-size: 0.93rem;
+
+        line-height: 1.7;
+    }
+
+    .close-rules {
+
+        top: 13px;
+
+        right: 14px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    header h1 {
+
+        font-size: 2.2rem;
+    }
+
+    .bookshelf {
+
+        width: 97%;
+
+        max-width: 97%;
+
+        padding: 12px;
+    }
+
+    .shelf {
+
+        min-height: 195px;
+    }
+
+    .book {
+
+        width: 41px;
+
+        flex-basis: 41px;
+
+        font-size: 0.68rem;
+    }
+
+    .letter-popup {
+
+        padding:
+            48px 20px;
+    }
+
+    .rules-card {
+
+        padding:
+            42px 20px;
+    }
+}
+
+/* =========================================================
+   FINAL COMPATIBILITY / SAFETY RULES
+========================================================= */
+
+/*
+   Keep the page scrollable.
+   DO NOT change this to overflow: hidden.
+*/
+
+html,
+body {
+
+    height: auto;
+
+    min-height: 100%;
+}
+
+
+body {
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+}
+
+
+/*
+   Keep popup overlays above everything.
+*/
+
+.letter-overlay {
+
+    isolation: isolate;
+}
+
+
+.rules-overlay {
+
+    isolation: isolate;
+}
+
+
+/*
+   Prevent the book decorative pseudo-elements from
+   interfering with clicks.
+*/
+
+.book::before,
+.book::after {
+
+    pointer-events: none;
+}
+
+
+/*
+   Keep the special book visually distinct.
+*/
+
+.book.special {
+
+    text-shadow:
+        1px 1px 2px rgba(40, 20, 8, 0.90),
+        0 0 5px rgba(255, 220, 150, 0.18);
+}
+
+
+/*
+   Keep popup content readable on long letters.
+*/
+
+.letter-content {
+
+    overflow-wrap: break-word;
+
+    word-break: normal;
+}
+
+
+/*
+   Prevent rules text from overflowing on narrow screens.
+*/
+
+.rule {
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   SIDE PANEL ACTION BUTTONS
+========================================================= */
+
+.action-btn {
+    background: #9b6838;
+}
+
+.action-btn:hover {
+    background: #b97f48;
+}
+
+.logout-btn {
+    background: #6e3f32;
+}
+
+.logout-btn:hover {
+    background: #884e3e;
+}
+
+
+/* =========================================================
+   COMPOSER MODAL STYLES (MATCHES RULES CARD AESTHETIC)
+========================================================= */
+
+.composer-card {
+    width: 600px;
+    max-width: 95%;
+}
+
+.composer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.composer-field label {
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    color: #4b3020;
+    font-weight: bold;
+}
+
+.composer-field input,
+.composer-field select,
+.composer-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    color: #3e2718;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(111, 76, 43, 0.35);
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.composer-field input:focus,
+.composer-field select:focus,
+.composer-field textarea:focus {
+    border-color: #9b6c3c;
+    box-shadow: 0 0 0 2px rgba(155, 108, 60, 0.25);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.composer-field textarea {
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.7;
+}
+
+.composer-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.composer-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #9b6c3c;
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.composer-btn:hover {
+    background: #bd8950;
+    transform: translateY(-2px);
+}
+
+.letter-footer-actions {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.composer-feedback {
+    margin-top: 15px;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    min-height: 20px;
+    color: #493326;
+}
+
+.composer-feedback.success {
+    color: #24582f;
+    font-weight: bold;
+}
+
+.composer-feedback.error {
+    color: #902626;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   END OF LIBRARY.CSS
+========================================================= */
+

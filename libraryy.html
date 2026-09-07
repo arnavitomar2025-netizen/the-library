@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>The Library</title>
+
+    <link
+        rel="stylesheet"
+        href="libraryy.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="overlay"></div>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+    <h1>The Library</h1>
+
+    <div class="divider"></div>
+
+</header>
+
+
+<!-- =========================================
+     LEFT PANEL
+========================================= -->
+
+<div class="left-panel">
+
+    <div class="quote-card">
+
+        <p>
+            I couldn't put everything<br>
+            I feel into one letter...<br>
+            so I made you a whole<br>
+            library instead.
+        </p>
+
+    </div>
+
+    <div class="table">
+
+        <div class="lamp"></div>
+
+        <div class="clock"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     RIGHT PANEL
+========================================= -->
+
+<div class="right-panel">
+
+    <button id="howToUseBtn" class="info-btn">
+        How to use
+    </button>
+
+    <button id="writeLetterBtn" class="info-btn action-btn">
+        ✍️ Write a Letter
+    </button>
+
+    <button id="logoutBtn" class="info-btn logout-btn">
+        Log Out
+    </button>
+
+    <div id="rulesOverlay" class="rules-overlay hidden">
+
+        <div class="rules-card">
+
+            <button id="closeRules" class="close-rules">
+                ×
+            </button>
+
+            <p class="rules-heading">
+                Rules of the Library
+            </p>
+
+            <div class="rules-divider"></div>
+
+            <p class="rule">
+                <span>I.</span> Take your time.
+            </p>
+
+            <p class="rule">
+                <span>II.</span> Read only when you're ready.
+            </p>
+
+            <p class="rule">
+                <span>III.</span> One book a day is recommended, but ik you are not gonna listen.
+            </p>
+
+            <p class="rule">
+                <span>IV.</span> If you miss me, you may open another.
+            </p>
+
+            <p class="rule">
+                <span>V.</span> Keep these little pieces safe.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="note-card">
+
+        Read one<br>
+        book every day,<br>
+        or whenever<br>
+        you miss me. ❤️
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     BOOKSHELF
+========================================= -->
+
+<main>
+
+    <div class="bookshelf">
+
+
+        <!-- SHELF 1 -->
+
+        <div class="shelf">
+
+            <div class="book burgundy" data-day="4">6 Aug</div>
+
+            <div class="book green" data-day="1">7 Aug</div>
+
+            <div class="book plum" data-day="2">8 Aug</div>
+
+            <div class="book blue" data-day="3">9 Aug</div>
+
+            <div class="book brown" data-day="4">10 Aug</div>
+
+            <div class="book plum" data-day="5">11 Aug</div>
+
+            <div class="book burgundy" data-day="6">12 Aug</div>
+
+            <div class="book green" data-day="7">13 Aug</div>
+
+            <div class="book blue" data-day="8">14 Aug</div>
+
+            <div class="book brown" data-day="9">15 Aug</div>
+
+            <div class="book plum" data-day="10">16 Aug</div>
+
+            <div class="book burgundy" data-day="11">17 Aug</div>
+
+            <div class="book green" data-day="12">18 Aug</div>
+
+        </div>
+
+
+        <!-- SHELF 2 -->
+
+        <div class="shelf">
+
+            <div class="book blue" data-day="13">19 Aug</div>
+
+            <div class="book brown" data-day="14">20 Aug</div>
+
+            <div class="book burgundy" data-day="15">21 Aug</div>
+
+            <div class="book green" data-day="16">22 Aug</div>
+
+            <div class="book plum" data-day="17">23 Aug</div>
+
+            <div class="book brown" data-day="18">24 Aug</div>
+
+            <div class="book blue" data-day="19">25 Aug</div>
+
+            <div class="book burgundy" data-day="20">26 Aug</div>
+
+            <div class="book green" data-day="21">27 Aug</div>
+
+            <div class="book plum" data-day="22">28 Aug</div>
+
+            <div class="book brown" data-day="23">29 Aug</div>
+
+            <div class="book blue" data-day="24">30 Aug</div>
+
+            <div class="book plum" data-day="25">31 Aug</div>
+
+        </div>
+
+
+        <!-- SHELF 3 -->
+
+        <div class="shelf">
+
+            <div class="book brown" data-day="26">1 Sep</div>
+
+            <div class="book burgundy" data-day="27">2 Sep</div>
+
+            <div class="book green" data-day="28">3 Sep</div>
+
+            <div class="book blue" data-day="29">4 Sep</div>
+
+            <div class="book plum" data-day="30">5 Sep</div>
+
+            <div class="book brown" data-day="31">6 Sep</div>
+
+            <div class="book burgundy" data-day="32">7 Sep</div>
+
+            <div class="book green" data-day="33">8 Sep</div>
+
+            <div class="book blue" data-day="34">9 Sep</div>
+
+            <div class="book plum" data-day="35">10 Sep</div>
+
+            <div class="book special" data-day="36">Love You</div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     BOTTOM DECORATIONS
+========================================= -->
+
+<div class="bottom-left">
+
+</div>
+
+
+<div class="bottom-right">
+
+</div>
+
+
+<footer>
+
+    <p>
+        Every book holds a piece of my heart. 🤎
+    </p>
+
+</footer>
+
+
+<!-- =========================================
+     LETTER POPUP (READER)
+========================================= -->
+
+<div id="letterOverlay" class="letter-overlay hidden">
+
+    <div class="letter-popup">
+
+        <button id="closeLetter" class="close-letter">
+            ×
+        </button>
+
+        <p id="letterDate" class="letter-date">
+            7 Aug
+        </p>
+
+        <h2 id="letterTitle">
+            A little letter for you
+        </h2>
+
+        <div id="letterContent" class="letter-content">
+
+            <p>
+                Your letter will appear here.
+            </p>
+
+        </div>
+
+        <div class="letter-footer-actions">
+            <button id="editCurrentLetterBtn" type="button" class="composer-btn">
+                Edit This Letter
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     LETTER COMPOSER MODAL (WRITE / EDIT)
+========================================= -->
+
+<div id="composerOverlay" class="rules-overlay hidden">
+
+    <div class="rules-card composer-card">
+
+        <button id="closeComposer" class="close-rules">
+            ×
+        </button>
+
+        <p class="rules-heading">
+            A Letter for The Library
+        </p>
+
+        <div class="rules-divider"></div>
+
+        <div class="composer-field">
+            <label for="composerBookSelect">Choose Book / Date:</label>
+            <select id="composerBookSelect">
+                <!-- Populated dynamically via JS -->
+            </select>
+        </div>
+
+        <div class="composer-field">
+            <label for="composerTitleInput">Book / Letter Title (Optional):</label>
+            <input
+                type="text"
+                id="composerTitleInput"
+                placeholder="Leave blank to automatically create a title"
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="composer-field">
+            <label for="composerContentTextarea">Letter Content:</label>
+            <textarea
+                id="composerContentTextarea"
+                rows="8"
+                placeholder="Write your heartfelt words here..."
+            ></textarea>
+        </div>
+
+        <div class="composer-actions">
+            <button id="saveLetterBtn" type="button" class="composer-btn">
+                Save Letter to Library
+            </button>
+        </div>
+
+        <p id="composerFeedback" class="composer-feedback"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SCRIPTS
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="libraryy.js"></script>
+
+</body>
+
+</html>
