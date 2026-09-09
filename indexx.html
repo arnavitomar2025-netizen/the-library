@@ -10,293 +10,158 @@
     <link rel="stylesheet" href="stylee.css">
 </head>
 
+
 <body>
 
     <div class="background"></div>
 
+
     <div class="container">
 
-        <!-- =========================================
-             1. MAIN LANDING CHOICE CARD
-        ========================================== -->
-        <div id="landingCard" class="account-card">
-            <h1>THE LIBRARY</h1>
+
+        <!-- ACCOUNT LOGIN / SIGN UP -->
+
+        <div class="account-card" id="accountCard">
+
+            <h1>Welcome to The Library</h1>
 
             <p class="account-subtitle">
-                A personal sanctuary of letters, books, and memories.
+                Create your own little library of letters and memories.
             </p>
 
-            <div class="flow-choice-group">
-                <span class="choice-label">New here?</span>
-                <button id="showSignUpBtn" type="button" class="btn-primary">
-                    Create an account
+
+            <input type="email" id="email" placeholder="Your email">
+
+
+            <div class="password-wrapper">
+                <input type="password" id="accountPassword" placeholder="Create a password">
+
+                <button type="button" class="toggle-password" data-target="accountPassword">
+                    👁
                 </button>
             </div>
 
-            <div class="flow-divider">
-                <span>or</span>
-            </div>
 
-            <div class="flow-choice-group">
-                <span class="choice-label">Already have an account?</span>
-                <button id="showLoginBtn" type="button" class="btn-primary">
-                    Log in
-                </button>
-            </div>
-
-            <div class="flow-footer">
-                <button id="showForgotBtn" type="button" class="link-btn">
-                    Forgot your password?
-                </button>
-            </div>
-        </div>
-
-        <!-- =========================================
-             2. SIGN UP FORM
-        ========================================== -->
-        <div id="signUpCard" class="account-card hidden">
-            <h1>Create an Account</h1>
-            <p class="account-subtitle">Begin your collection of timeless letters.</p>
-
-            <input
-                type="email"
-                id="signUpEmail"
-                placeholder="Your email address"
-                autocomplete="email"
-            >
-
-            <input
-                type="password"
-                id="signUpPassword"
-                placeholder="Create account password"
-                autocomplete="new-password"
-            >
-
-            <button id="doSignUpBtn" type="button" class="btn-primary">
-                Create Account
+            <button id="signUpBtn">
+                Create My Library
             </button>
 
-            <div class="flow-footer">
-                <button type="button" class="link-btn back-to-landing">
-                    ← Back to menu
-                </button>
-            </div>
 
-            <p id="signUpMsg" class="feedback-msg"></p>
-        </div>
-
-        <!-- =========================================
-             3. LOG IN FORM
-        ========================================== -->
-        <div id="loginCard" class="account-card hidden">
-            <h1>Welcome Back</h1>
-            <p class="account-subtitle">Log in to open your personal library.</p>
-
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="Your email address"
-                autocomplete="email"
-            >
-
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Account password"
-                autocomplete="current-password"
-            >
-
-            <button id="doLoginBtn" type="button" class="btn-primary">
-                Log In
+            <button id="loginBtn">
+                I already have an account
             </button>
 
-            <div class="flow-footer-split">
-                <button type="button" class="link-btn back-to-landing">
-                    ← Back to menu
-                </button>
-                <button id="loginForgotLink" type="button" class="link-btn">
-                    Forgot password?
-                </button>
-            </div>
 
-            <p id="loginMsg" class="feedback-msg"></p>
+            <p id="authMessage"></p>
+
         </div>
 
-        <!-- =========================================
-             4. FORGOT ACCOUNT PASSWORD FORM
-        ========================================== -->
-        <div id="forgotCard" class="account-card hidden">
-            <h1>Account Recovery</h1>
-            <p class="account-subtitle">
-                Enter your email. We'll send you a link to reset your account password.
-            </p>
 
-            <input
-                type="email"
-                id="forgotEmail"
-                placeholder="Your email address"
-                autocomplete="email"
-            >
 
-            <button id="sendResetEmailBtn" type="button" class="btn-primary">
-                Send Reset Link
-            </button>
+        <!-- CREATE LIBRARY PASSWORD -->
 
-            <div class="flow-footer">
-                <button type="button" class="link-btn back-to-landing">
-                    ← Back to menu
-                </button>
-            </div>
+        <div class="create-password-card hidden" id="createPasswordCard">
 
-            <p id="forgotMsg" class="feedback-msg"></p>
-        </div>
+            <h1>Your Library Password</h1>
 
-        <!-- =========================================
-             5. RESET ACCOUNT PASSWORD FORM (From email link)
-        ========================================== -->
-        <div id="updateAccountPasswordCard" class="account-card hidden">
-            <h1>New Account Password</h1>
-            <p class="account-subtitle">Choose a new password for your account.</p>
-
-            <input
-                type="password"
-                id="newAccountPassword"
-                placeholder="Enter new account password"
-                autocomplete="new-password"
-            >
-
-            <button id="saveNewAccountPasswordBtn" type="button" class="btn-primary">
-                Update Password &amp; Continue
-            </button>
-
-            <p id="updateAccountPasswordMsg" class="feedback-msg"></p>
-        </div>
-
-        <!-- =========================================
-             6. CREATE PERSONAL LIBRARY PASSWORD
-        ========================================== -->
-        <div id="createLibraryPasswordCard" class="account-card hidden">
-            <h1>The Library</h1>
             <p class="question">
-                Create your personal Library password:
-            </p>
-            <p class="account-subtitle small-subtitle">
-                This password keeps your private letters and books protected.
+                Create a password for your private Library.
             </p>
 
-            <input
-                type="password"
-                id="newLibraryPassword"
-                placeholder="Create Library password"
-                autocomplete="new-password"
-            >
 
-            <input
-                type="password"
-                id="confirmLibraryPassword"
-                placeholder="Confirm Library password"
-                autocomplete="new-password"
-            >
+            <div class="password-wrapper">
+                <input type="password" id="newLibraryPassword" placeholder="Create Library password">
 
-            <button id="saveLibraryPasswordBtn" type="button" class="btn-primary">
-                Continue
+                <button type="button" class="toggle-password" data-target="newLibraryPassword">
+                    👁
+                </button>
+            </div>
+
+
+            <div class="password-wrapper">
+                <input type="password" id="confirmLibraryPassword" placeholder="Confirm Library password">
+
+                <button type="button" class="toggle-password" data-target="confirmLibraryPassword">
+                    👁
+                </button>
+            </div>
+
+
+            <button id="saveLibraryPassword">
+                Create My Library Password
             </button>
 
-            <p id="createLibraryPasswordMsg" class="feedback-msg"></p>
+
+            <p id="createPasswordMessage"></p>
+
         </div>
 
-        <!-- =========================================
-             7. UNLOCK PERSONAL LIBRARY PASSWORD
-        ========================================== -->
-        <div id="unlockLibraryPasswordCard" class="password-card hidden">
+
+
+        <!-- ENTER LIBRARY PASSWORD -->
+
+        <div class="password-card hidden" id="passwordCard">
+
             <h1>The Library</h1>
 
             <p class="question">
                 Enter your Library password:
             </p>
 
-            <input
-                type="password"
-                id="enterLibraryPassword"
-                placeholder="Enter Library Password"
-                autocomplete="current-password"
-            >
 
-            <button id="unlockLibraryBtn" type="button" class="btn-primary">
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Enter Password">
+
+                <button type="button" class="toggle-password" data-target="password">
+                    👁
+                </button>
+            </div>
+
+
+            <button id="unlockBtn">
                 Unlock
             </button>
 
-            <div class="flow-footer">
-                <button id="showResetLibraryPasswordBtn" type="button" class="link-btn">
-                    Forgot your Library password?
-                </button>
-            </div>
 
-            <p id="unlockLibraryMsg" class="feedback-msg"></p>
+            <p id="errorMessage"></p>
+
         </div>
 
-        <!-- =========================================
-             8. RESET PERSONAL LIBRARY PASSWORD
-        ========================================== -->
-        <div id="resetLibraryPasswordCard" class="account-card hidden">
-            <h1>Reset Library Password</h1>
-            <p class="account-subtitle">
-                Since you are securely logged into your account, you can create a new Library password now.
-            </p>
 
-            <input
-                type="password"
-                id="resetLibraryPasswordInput"
-                placeholder="New Library password"
-                autocomplete="new-password"
-            >
 
-            <input
-                type="password"
-                id="resetConfirmLibraryPasswordInput"
-                placeholder="Confirm new Library password"
-                autocomplete="new-password"
-            >
+        <!-- WELCOME NOTE -->
 
-            <button id="doResetLibraryPasswordBtn" type="button" class="btn-primary">
-                Update Library Password &amp; Unlock
-            </button>
-
-            <div class="flow-footer">
-                <button id="cancelResetLibraryBtn" type="button" class="link-btn">
-                    Cancel
-                </button>
-            </div>
-
-            <p id="resetLibraryPasswordMsg" class="feedback-msg"></p>
-        </div>
-
-        <!-- =========================================
-             9. WELCOME NOTE
-        ========================================== -->
         <div class="welcome-note hidden">
+
             <div class="paper">
+
                 <p>
                     I have a lot to tell you, so I wrote this for you.
                 </p>
 
-                <button id="enterLibrary" type="button">
+
+                <button id="enterLibrary">
                     Enter the Library 📚
                 </button>
+
             </div>
+
         </div>
+
 
     </div>
 
-    <!-- =========================================
-         SUPABASE JS
-    ========================================== -->
+
+
+    <!-- SUPABASE -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- =========================================
-         AUTHENTICATION JAVASCRIPT
-    ========================================== -->
+
+    <!-- YOUR JAVASCRIPT -->
+
     <script src="scriptt.js"></script>
+
 
 </body>
 

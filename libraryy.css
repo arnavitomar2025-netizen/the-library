@@ -31,28 +31,20 @@ body {
     overflow-y: auto;
 
     background:
-        radial-gradient(
-            ellipse at 50% 28%,
+        radial-gradient(ellipse at 50% 28%,
             rgba(118, 72, 39, 0.38) 0%,
             rgba(67, 37, 22, 0.28) 35%,
-            transparent 68%
-        ),
-        radial-gradient(
-            ellipse at 15% 65%,
+            transparent 68%),
+        radial-gradient(ellipse at 15% 65%,
             rgba(135, 82, 42, 0.12),
-            transparent 45%
-        ),
-        radial-gradient(
-            ellipse at 88% 62%,
+            transparent 45%),
+        radial-gradient(ellipse at 88% 62%,
             rgba(135, 82, 42, 0.10),
-            transparent 45%
-        ),
-        linear-gradient(
-            180deg,
+            transparent 45%),
+        linear-gradient(180deg,
             #24140d 0%,
             #3a2115 42%,
-            #2b180f 100%
-        );
+            #2b180f 100%);
 
     background-attachment: fixed;
 
@@ -92,61 +84,45 @@ body::after {
 
     background-image:
 
-        radial-gradient(
-            circle at 8% 22%,
+        radial-gradient(circle at 8% 22%,
             rgba(255, 221, 164, 0.30) 0px,
             rgba(255, 221, 164, 0.30) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 19% 71%,
+        radial-gradient(circle at 19% 71%,
             rgba(255, 226, 177, 0.22) 0px,
             rgba(255, 226, 177, 0.22) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 31% 38%,
+        radial-gradient(circle at 31% 38%,
             rgba(255, 218, 157, 0.24) 0px,
             rgba(255, 218, 157, 0.24) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 47% 18%,
+        radial-gradient(circle at 47% 18%,
             rgba(255, 225, 175, 0.25) 0px,
             rgba(255, 225, 175, 0.25) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 62% 67%,
+        radial-gradient(circle at 62% 67%,
             rgba(255, 220, 162, 0.20) 0px,
             rgba(255, 220, 162, 0.20) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 76% 31%,
+        radial-gradient(circle at 76% 31%,
             rgba(255, 226, 178, 0.28) 0px,
             rgba(255, 226, 178, 0.28) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 89% 78%,
+        radial-gradient(circle at 89% 78%,
             rgba(255, 218, 157, 0.20) 0px,
             rgba(255, 218, 157, 0.20) 1px,
-            transparent 2px
-        ),
+            transparent 2px),
 
-        radial-gradient(
-            circle at 94% 16%,
+        radial-gradient(circle at 94% 16%,
             rgba(255, 229, 182, 0.24) 0px,
             rgba(255, 229, 182, 0.24) 1px,
-            transparent 2px
-        );
+            transparent 2px);
 
     opacity: 0.45;
 }
@@ -300,11 +276,9 @@ main {
     max-width: 70%;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             #55351f,
-            #432817
-        );
+            #432817);
 
     border-radius: 18px;
 
@@ -332,17 +306,13 @@ main {
 
 .shelf {
     background:
-        radial-gradient(
-            ellipse at 50% 78%,
+        radial-gradient(ellipse at 50% 78%,
             rgba(190, 124, 58, 0.16),
-            transparent 58%
-        ),
-        linear-gradient(
-            180deg,
+            transparent 58%),
+        linear-gradient(180deg,
             rgba(130, 78, 42, 0.96),
             rgba(105, 60, 32, 0.98) 72%,
-            rgba(68, 37, 20, 1)
-        );
+            rgba(68, 37, 20, 1));
 
     border-radius: 8px;
 
@@ -372,8 +342,7 @@ main {
         0 7px 15px rgba(0, 0, 0, 0.28);
 
     filter:
-        contrast(1.03)
-        saturate(0.96);
+        contrast(1.03) saturate(0.96);
 }
 
 
@@ -392,14 +361,12 @@ main {
     height: 3px;
 
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             transparent 0%,
             rgba(224, 173, 103, 0.13) 20%,
             rgba(224, 173, 103, 0.08) 50%,
             rgba(224, 173, 103, 0.13) 80%,
-            transparent 100%
-        );
+            transparent 100%);
 
     opacity: 0.7;
 
@@ -431,7 +398,7 @@ main {
 
 /* stronger separation between shelves */
 
-.shelf + .shelf {
+.shelf+.shelf {
     box-shadow:
         inset 0 3px 8px rgba(255, 204, 135, 0.08),
         inset 0 -13px 20px rgba(25, 12, 6, 0.40),
@@ -486,8 +453,7 @@ main {
         2px 3px 7px rgba(0, 0, 0, 0.30);
 
     filter:
-        saturate(0.96)
-        contrast(1.04);
+        saturate(0.96) contrast(1.04);
 
     text-shadow:
         1px 1px 2px rgba(40, 20, 8, 0.85),
@@ -575,12 +541,10 @@ main {
     width: 2px;
 
     background:
-        linear-gradient(
-            to bottom,
+        linear-gradient(to bottom,
             transparent,
             rgba(255, 220, 150, 0.22),
-            transparent
-        );
+            transparent);
 
     pointer-events: none;
 }
@@ -612,11 +576,9 @@ main {
 
 .special {
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             #b1844c,
-            #8b6135
-        );
+            #8b6135);
 
     color: #ffe7ad;
 
@@ -642,11 +604,9 @@ main {
     position: relative;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             rgba(112, 67, 36, 0.95),
-            rgba(72, 40, 22, 0.98)
-        );
+            rgba(72, 40, 22, 0.98));
 
     border-radius: 10px;
 
@@ -668,13 +628,11 @@ main {
     inset: 0;
 
     background:
-        repeating-linear-gradient(
-            8deg,
+        repeating-linear-gradient(8deg,
             transparent 0px,
             transparent 13px,
             rgba(225, 170, 100, 0.045) 14px,
-            transparent 16px
-        );
+            transparent 16px);
 
     opacity: 0.8;
 
@@ -700,12 +658,10 @@ main {
     height: 2px;
 
     background:
-        linear-gradient(
-            90deg,
+        linear-gradient(90deg,
             transparent,
             rgba(231, 190, 124, 0.28),
-            transparent
-        );
+            transparent);
 
     pointer-events: none;
 }
@@ -759,13 +715,11 @@ main {
     border-radius: 50%;
 
     background:
-        radial-gradient(
-            circle,
+        radial-gradient(circle,
             rgba(255, 215, 145, 0.28) 0%,
             rgba(255, 190, 110, 0.12) 35%,
             rgba(255, 170, 90, 0.04) 60%,
-            transparent 75%
-        );
+            transparent 75%);
 
     pointer-events: none;
 
@@ -912,12 +866,10 @@ footer {
     border-radius: 4px;
 
     background:
-        radial-gradient(
-            ellipse at center,
+        radial-gradient(ellipse at center,
             #f8edda 0%,
             #f1dfbd 65%,
-            #d9bd91 100%
-        );
+            #d9bd91 100%);
 
     color: #493326;
 
@@ -931,76 +883,74 @@ footer {
        Softly irregular paper edge.
        Kept simple so long letters remain usable.
     */
-    clip-path: polygon(
-        0% 2%,
-        4% 1%,
-        8% 2%,
-        12% 1%,
-        16% 2%,
-        20% 1%,
-        24% 2%,
-        28% 1%,
-        32% 2%,
-        36% 1%,
-        40% 2%,
-        44% 1%,
-        48% 2%,
-        52% 1%,
-        56% 2%,
-        60% 1%,
-        64% 2%,
-        68% 1%,
-        72% 2%,
-        76% 1%,
-        80% 2%,
-        84% 1%,
-        88% 2%,
-        92% 1%,
-        96% 2%,
-        100% 1%,
+    clip-path: polygon(0% 2%,
+            4% 1%,
+            8% 2%,
+            12% 1%,
+            16% 2%,
+            20% 1%,
+            24% 2%,
+            28% 1%,
+            32% 2%,
+            36% 1%,
+            40% 2%,
+            44% 1%,
+            48% 2%,
+            52% 1%,
+            56% 2%,
+            60% 1%,
+            64% 2%,
+            68% 1%,
+            72% 2%,
+            76% 1%,
+            80% 2%,
+            84% 1%,
+            88% 2%,
+            92% 1%,
+            96% 2%,
+            100% 1%,
 
-        99% 12%,
-        100% 24%,
-        99% 36%,
-        100% 48%,
-        99% 60%,
-        100% 72%,
-        99% 84%,
-        100% 99%,
+            99% 12%,
+            100% 24%,
+            99% 36%,
+            100% 48%,
+            99% 60%,
+            100% 72%,
+            99% 84%,
+            100% 99%,
 
-        96% 98%,
-        92% 99%,
-        88% 98%,
-        84% 99%,
-        80% 98%,
-        76% 99%,
-        72% 98%,
-        68% 99%,
-        64% 98%,
-        60% 99%,
-        56% 98%,
-        52% 99%,
-        48% 98%,
-        44% 99%,
-        40% 98%,
-        36% 99%,
-        32% 98%,
-        28% 99%,
-        24% 98%,
-        20% 99%,
-        16% 98%,
-        12% 99%,
-        8% 98%,
-        4% 99%,
-        0% 98%,
+            96% 98%,
+            92% 99%,
+            88% 98%,
+            84% 99%,
+            80% 98%,
+            76% 99%,
+            72% 98%,
+            68% 99%,
+            64% 98%,
+            60% 99%,
+            56% 98%,
+            52% 99%,
+            48% 98%,
+            44% 99%,
+            40% 98%,
+            36% 99%,
+            32% 98%,
+            28% 99%,
+            24% 98%,
+            20% 99%,
+            16% 98%,
+            12% 99%,
+            8% 98%,
+            4% 99%,
+            0% 98%,
 
-        1% 86%,
-        0% 72%,
-        1% 58%,
-        0% 44%,
-        1% 30%,
-        0% 16%
-    );
+            1% 86%,
+            0% 72%,
+            1% 58%,
+            0% 44%,
+            1% 30%,
+            0% 16%);
 
     animation:
         letterOpen 0.45s ease;
@@ -1051,8 +1001,7 @@ footer {
         opacity: 0;
 
         transform:
-            scale(0.82)
-            translateY(30px);
+            scale(0.82) translateY(30px);
     }
 
     to {
@@ -1060,8 +1009,7 @@ footer {
         opacity: 1;
 
         transform:
-            scale(1)
-            translateY(0);
+            scale(1) translateY(0);
     }
 }
 
@@ -1224,12 +1172,10 @@ footer {
     padding: 55px 65px;
 
     background:
-        radial-gradient(
-            ellipse at center,
+        radial-gradient(ellipse at center,
             #f7ecd8 0%,
             #efdfc1 65%,
-            #d9bd91 100%
-        );
+            #d9bd91 100%);
 
     color: #493326;
 
@@ -1424,8 +1370,7 @@ footer {
         opacity: 0;
 
         transform:
-            scale(0.9)
-            translateY(20px);
+            scale(0.9) translateY(20px);
     }
 
     to {
@@ -1433,8 +1378,7 @@ footer {
         opacity: 1;
 
         transform:
-            scale(1)
-            translateY(0);
+            scale(1) translateY(0);
     }
 }
 
@@ -1908,130 +1852,5 @@ body {
 
 
 /* =========================================================
-   SIDE PANEL ACTION BUTTONS
-========================================================= */
-
-.action-btn {
-    background: #9b6838;
-}
-
-.action-btn:hover {
-    background: #b97f48;
-}
-
-.logout-btn {
-    background: #6e3f32;
-}
-
-.logout-btn:hover {
-    background: #884e3e;
-}
-
-
-/* =========================================================
-   COMPOSER MODAL STYLES (MATCHES RULES CARD AESTHETIC)
-========================================================= */
-
-.composer-card {
-    width: 600px;
-    max-width: 95%;
-}
-
-.composer-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.composer-field label {
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    color: #4b3020;
-    font-weight: bold;
-}
-
-.composer-field input,
-.composer-field select,
-.composer-field textarea {
-    width: 100%;
-    padding: 12px 14px;
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    color: #3e2718;
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(111, 76, 43, 0.35);
-    border-radius: 8px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.composer-field input:focus,
-.composer-field select:focus,
-.composer-field textarea:focus {
-    border-color: #9b6c3c;
-    box-shadow: 0 0 0 2px rgba(155, 108, 60, 0.25);
-    background: rgba(255, 255, 255, 0.95);
-}
-
-.composer-field textarea {
-    resize: vertical;
-    min-height: 140px;
-    line-height: 1.7;
-}
-
-.composer-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-}
-
-.composer-btn {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 10px;
-    background: #9b6c3c;
-    color: white;
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.composer-btn:hover {
-    background: #bd8950;
-    transform: translateY(-2px);
-}
-
-.letter-footer-actions {
-    margin-top: 35px;
-    display: flex;
-    justify-content: center;
-}
-
-.composer-feedback {
-    margin-top: 15px;
-    text-align: center;
-    font-family: Georgia, serif;
-    font-size: 0.95rem;
-    min-height: 20px;
-    color: #493326;
-}
-
-.composer-feedback.success {
-    color: #24582f;
-    font-weight: bold;
-}
-
-.composer-feedback.error {
-    color: #902626;
-    font-weight: bold;
-}
-
-
-/* =========================================================
    END OF LIBRARY.CSS
 ========================================================= */
-
