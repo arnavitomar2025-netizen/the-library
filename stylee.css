@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Pinyon+Script&display=swap');
+
 /* ===========================================
    RESET
 =========================================== */
@@ -110,9 +112,17 @@ body {
    ACCOUNT TITLE
 =========================================== */
 
-.account-card h1 {
+.account-card h1,
+.create-password-card h1,
+.password-card h1 {
+
+    font-family: 'Cinzel Decorative', Georgia, serif;
+
+    font-weight: 700;
 
     font-size: 2.6rem;
+
+    letter-spacing: 1.5px;
 
     margin-bottom: 18px;
 
@@ -231,13 +241,6 @@ body {
 }
 
 
-.create-password-card h1 {
-
-    font-size: 2.6rem;
-
-    margin-bottom: 18px;
-
-}
 
 
 /* ===========================================

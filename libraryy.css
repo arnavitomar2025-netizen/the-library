@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Pinyon+Script&display=swap');
+
 /* =========================================================
    THE LIBRARY — LIBRARY PAGE
    CLEANED + CONSOLIDATED VERSION
@@ -142,11 +144,13 @@ header {
 }
 
 header h1 {
+    font-family: 'Cinzel Decorative', Georgia, serif;
+    font-weight: 700;
     font-size: 4.5rem;
 
     color: #f4e8d3;
 
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 
     text-shadow:
         0 3px 12px rgba(0, 0, 0, 0.40);
@@ -1107,17 +1111,23 @@ footer {
 
     text-align: left;
 
-    font-size: 1.15rem;
+    font-family: 'Pinyon Script', 'Alex Brush', cursive;
 
-    line-height: 2;
+    font-size: 1.65rem;
 
-    color: #4b3628;
+    line-height: 1.85;
+
+    color: #3c2518;
+
+    letter-spacing: 0.3px;
 }
 
 
 .letter-content p {
 
     margin-bottom: 22px;
+
+    font-family: inherit;
 }
 
 /* =========================================================
@@ -1383,6 +1393,239 @@ footer {
 }
 
 /* =========================================================
+   EDIT THIS LETTER / COMPOSER DIALOG — VINTAGE WRITING DESK
+========================================================= */
+
+.composer-card {
+    position: relative;
+    width: 580px;
+    max-width: 92%;
+    max-height: 86vh;
+    overflow-y: auto;
+    padding: 46px 52px;
+
+    /* Warm, rich aged parchment / antique desk writing surface */
+    background:
+        radial-gradient(ellipse at 50% 18%,
+            #fdf6e9 0%,
+            #f5e8cf 45%,
+            #ebd6b0 78%,
+            #d8be8f 100%);
+    color: #432918;
+    text-align: left;
+
+    border-radius: 6px;
+    border: 1px solid rgba(132, 92, 54, 0.45);
+
+    /* Soft dimensional depth & warm ambient shadow of library desk element */
+    box-shadow:
+        0 28px 75px rgba(0, 0, 0, 0.68),
+        0 10px 28px rgba(45, 25, 12, 0.38),
+        inset 0 0 50px rgba(135, 90, 48, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(132, 92, 54, 0.4) transparent;
+}
+
+/* Subtle antique framed inner border */
+.composer-card::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(135, 92, 50, 0.32);
+    outline: 1px dashed rgba(135, 92, 50, 0.18);
+    outline-offset: -4px;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+/* Antique calligraphy heading in dialog */
+.composer-card .rules-heading {
+    font-family: 'Cinzel Decorative', Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #3f2615;
+    letter-spacing: 1.5px;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(255, 245, 230, 0.7);
+    margin: 0;
+}
+
+/* Refined antique parchment divider */
+.composer-card .rules-divider {
+    width: 90px;
+    height: 2px;
+    margin: 14px auto 26px;
+    background: linear-gradient(90deg, transparent, #b48045 50%, transparent);
+    border-radius: 1px;
+}
+
+/* Close button antique styling */
+.composer-card .close-rules {
+    color: #7b573c;
+    font-family: Georgia, serif;
+    font-size: 1.9rem;
+    transition: all 0.25s ease;
+}
+
+.composer-card .close-rules:hover {
+    color: #3b2212;
+    background: rgba(105, 68, 36, 0.12);
+}
+
+/* Composer Form Fields */
+.composer-field {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.composer-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4e321e;
+    letter-spacing: 0.5px;
+}
+
+/* Warm aged stationery inputs (not plain white modern popup boxes) */
+.composer-field select,
+.composer-field input,
+.composer-field textarea {
+    width: 100%;
+    background: #fdfaf3;
+    border: 1px solid rgba(142, 99, 58, 0.40);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    color: #3c2415;
+    box-shadow:
+        inset 0 2px 5px rgba(78, 48, 22, 0.08),
+        0 1px 0 rgba(255, 255, 255, 0.85);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.composer-field select:focus,
+.composer-field input:focus,
+.composer-field textarea:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #9f6b3b;
+    box-shadow:
+        0 0 0 3px rgba(162, 110, 60, 0.22),
+        inset 0 1px 3px rgba(78, 48, 22, 0.08);
+}
+
+.composer-field input::placeholder,
+.composer-field textarea::placeholder {
+    color: #9c826e;
+    font-style: italic;
+}
+
+/* Antique styled dropdown */
+.composer-field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath fill='%236f4c2e' d='M7 10L0 1.5 1.5 0 7 7 12.5 0 14 1.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 11px;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.composer-field select option {
+    background: #f7edd8;
+    color: #422919;
+}
+
+/* Handwritten feel for letter content textarea */
+.composer-field textarea {
+    font-family: 'Pinyon Script', 'Alex Brush', cursive;
+    font-size: 1.45rem;
+    line-height: 1.65;
+    color: #321c10;
+    min-height: 170px;
+    resize: vertical;
+}
+
+/* Composer Actions and Antique Button */
+.composer-actions {
+    margin-top: 26px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.composer-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid rgba(197, 149, 97, 0.5);
+    border-radius: 5px;
+    background: linear-gradient(180deg,
+        #734624 0%,
+        #573216 50%,
+        #46250e 100%);
+    color: #faeedb;
+    font-family: Georgia, serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    box-shadow:
+        0 4px 14px rgba(35, 18, 9, 0.40),
+        inset 0 1px 0 rgba(255, 225, 185, 0.25);
+    transition:
+        background 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.25s ease,
+        color 0.25s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.composer-btn:hover {
+    background: linear-gradient(180deg,
+        #8a552e 0%,
+        #6a3d1c 50%,
+        #542e13 100%);
+    box-shadow:
+        0 6px 18px rgba(35, 18, 9, 0.50),
+        inset 0 1px 0 rgba(255, 235, 200, 0.35);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.composer-btn:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 6px rgba(35, 18, 9, 0.40),
+        inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* "Edit This Letter" button footer in letter popup */
+.letter-footer-actions {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px dashed rgba(135, 92, 50, 0.35);
+    text-align: center;
+}
+
+/* Feedback message */
+.composer-feedback {
+    margin-top: 14px;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    min-height: 22px;
+    text-align: center;
+    color: #4b301f;
+    transition: opacity 0.3s ease;
+}
+
+/* =========================================================
    GENERAL BUTTON RESET
 ========================================================= */
 
@@ -1574,7 +1817,7 @@ footer {
 
     .letter-content {
 
-        font-size: 1.05rem;
+        font-size: 1.45rem;
 
         line-height: 1.85;
     }
@@ -1592,6 +1835,16 @@ footer {
 
         padding:
             45px 35px;
+    }
+
+    .composer-card {
+
+        padding: 40px 24px 30px;
+    }
+
+    .composer-card .rules-heading {
+
+        font-size: 1.55rem;
     }
 
     .rules-heading {
@@ -1684,7 +1937,7 @@ footer {
 
     .letter-content {
 
-        font-size: 1rem;
+        font-size: 1.35rem;
 
         line-height: 1.75;
     }
@@ -1693,6 +1946,12 @@ footer {
 
         padding:
             45px 25px;
+    }
+
+    .composer-card {
+
+        padding:
+            36px 18px 24px;
     }
 
     .rule {

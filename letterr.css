@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Pinyon+Script&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -81,18 +83,24 @@ body {
 
 .letter-content {
 
-    font-size: 1.2rem;
+    font-family: 'Pinyon Script', 'Alex Brush', cursive;
 
-    line-height: 2;
+    font-size: 1.65rem;
+
+    line-height: 1.85;
 
     text-align: left;
 
+    color: #3c2518;
+
+    letter-spacing: 0.3px;
 }
 
 .letter-content p {
 
     margin-bottom: 25px;
 
+    font-family: inherit;
 }
 
 #backButton {
