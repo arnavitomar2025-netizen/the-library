@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cinzel+Decorative:wght@700&display=swap');
 
 /* =========================================================
    THE LIBRARY — LIBRARY PAGE
@@ -144,7 +144,7 @@ header {
 }
 
 header h1 {
-    font-family: 'UnifrakturCook', cursive;
+    font-family: 'Cinzel Decorative', Georgia, serif;
     font-weight: 700;
     font-size: 4.5rem;
 
@@ -1444,7 +1444,7 @@ footer {
 
 /* Antique calligraphy heading in dialog */
 .composer-card .rules-heading {
-    font-family: 'UnifrakturCook', cursive;
+    font-family: 'Cinzel Decorative', Georgia, serif;
     font-size: 1.85rem;
     font-weight: 700;
     color: #3f2615;
