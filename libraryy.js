@@ -17,6 +17,15 @@ const supabaseClient = createClient(
 
 
 /* =========================================
+   STATE
+========================================= */
+
+let currentUser = null;
+let userLettersMap = {};
+let currentSelectedBookKey = null;
+
+
+/* =========================================
    BOOKS + LETTER ELEMENTS
 ========================================= */
 
@@ -38,100 +47,192 @@ const letterTitle =
 const letterContent =
     document.getElementById("letterContent");
 
+const editCurrentLetterBtn =
+    document.getElementById("editCurrentLetterBtn");
+
+const howToUseBtn =
+    document.getElementById("howToUseBtn");
+
+const rulesOverlay =
+    document.getElementById("rulesOverlay");
+
+const closeRules =
+    document.getElementById("closeRules");
+
+const writeLetterBtn =
+    document.getElementById("writeLetterBtn");
+
+const composerOverlay =
+    document.getElementById("composerOverlay");
+
+const closeComposer =
+    document.getElementById("closeComposer");
+
+const composerBookSelect =
+    document.getElementById("composerBookSelect");
+
+const composerTitleInput =
+    document.getElementById("composerTitleInput");
+
+const composerContentTextarea =
+    document.getElementById("composerContentTextarea");
+
+const saveLetterBtn =
+    document.getElementById("saveLetterBtn");
+
+const composerFeedback =
+    document.getElementById("composerFeedback");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
 
 /* =========================================
-   LETTERS
+   POPULATE BOOK SELECTOR
 ========================================= */
 
-const letters = {
+function populateBookSelect() {
 
-    "6 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+    if (!composerBookSelect) return;
 
-    "7 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+    composerBookSelect.innerHTML = "";
 
-    "8 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+    books.forEach(function (book) {
 
-    "9 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+        const option =
+            document.createElement("option");
 
-    "10 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+        option.value =
+            book.textContent.trim();
 
-    "11 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
-    },
+        option.textContent =
+            book.textContent.trim();
 
-    "12 Aug": {
-        title: " ",
-        content: `
-            <p>
-                
-            </p>
-        `
+        composerBookSelect.appendChild(option);
+
+    });
+
+}
+
+
+/* =========================================
+   GENERATE TITLE
+========================================= */
+
+function generateTitleFromContent(
+    content,
+    bookKey
+) {
+
+    const plainText =
+        content
+            .replace(/<[^>]*>/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+
+    if (!plainText) {
+
+        return "A little letter for " + bookKey;
+
     }
 
-};
+    const firstSentence =
+        plainText.split(/[.!?]/)[0].trim();
+
+    if (
+        firstSentence &&
+        firstSentence.length <= 50
+    ) {
+
+        return firstSentence;
+
+    }
+
+    if (plainText.length <= 45) {
+
+        return plainText;
+
+    }
+
+    return plainText.slice(0, 45) + "...";
+
+}
 
 
 /* =========================================
-   OPEN BOOK
+   LOAD USER LETTERS
 ========================================= */
 
-books.forEach(function (book) {
+async function loadUserLetters() {
 
-    book.addEventListener("click", function () {
+    userLettersMap = {};
 
-        const date =
-            this.textContent.trim();
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("letters")
+        .select(
+            "book_key, title, content"
+        );
+
+    if (error) {
+
+        console.error(
+            "Error loading letters:",
+            error
+        );
+
+        return;
+
+    }
+
+    data.forEach(function (item) {
+
+        userLettersMap[item.book_key] = {
+
+            title: item.title,
+
+            content: item.content
+
+        };
+
+    });
+
+}
 
 
-        /* =====================================
-           LOVE YOU BOOK
-        ===================================== */
+/* =========================================
+   OPEN LETTER
+========================================= */
 
-        if (
-            this.classList.contains("special")
-        ) {
+function openLetterForBook(
+    bookKey,
+    isSpecial
+) {
 
-            letterDate.textContent = "";
+    currentSelectedBookKey =
+        bookKey;
+
+
+    if (isSpecial) {
+
+        letterDate.textContent = "";
+
+        const letter =
+            userLettersMap[bookKey];
+
+        if (letter) {
+
+            letterTitle.textContent =
+                letter.title || "Love You";
+
+            letterContent.innerHTML =
+                letter.content;
+
+        }
+
+        else {
 
             letterTitle.textContent =
                 "Love You";
@@ -145,85 +246,107 @@ books.forEach(function (book) {
 
         }
 
-
-        /* =====================================
-           NORMAL BOOK
-        ===================================== */
-
-        else {
-
-            letterDate.textContent =
-                date;
-
-            const letter =
-                letters[date];
+    }
 
 
-            if (letter) {
+    else {
 
-                letterTitle.textContent =
-                    letter.title;
+        letterDate.textContent =
+            bookKey;
 
-                letterContent.innerHTML =
-                    letter.content;
-
-            }
+        const letter =
+            userLettersMap[bookKey];
 
 
-            else {
+        if (letter) {
 
-                letterTitle.textContent =
-                    "A little letter for you";
+            letterTitle.textContent =
+                letter.title ||
+                "A little letter for you";
 
-                letterContent.innerHTML = `
-                    <p>
-                        Your letter for ${date}
-                        will go here.
-                    </p>
-                `;
-
-            }
+            letterContent.innerHTML =
+                letter.content;
 
         }
 
 
-        /* =====================================
-           OPEN LETTER OVERLAY
-        ===================================== */
+        else {
 
-        letterOverlay.classList.remove(
-            "hidden"
-        );
+            letterTitle.textContent =
+                "A little letter for you";
 
-        document.body.style.overflow =
-            "hidden";
+            letterContent.innerHTML = `
+                <p>
+                    Your letter for ${bookKey}
+                    will go here.
+                </p>
+            `;
 
-    });
+        }
+
+    }
+
+
+    letterOverlay.classList.remove(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================
+   OPEN BOOK
+========================================= */
+
+books.forEach(function (book) {
+
+    book.addEventListener(
+        "click",
+        function () {
+
+            const bookKey =
+                this.textContent.trim();
+
+            const isSpecial =
+                this.classList.contains(
+                    "special"
+                );
+
+            openLetterForBook(
+                bookKey,
+                isSpecial
+            );
+
+        }
+    );
 
 });
 
 
 /* =========================================
-   CLOSE LETTER BUTTON
+   CLOSE LETTER
 ========================================= */
+
+function hideLetter() {
+
+    letterOverlay.classList.add(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
 
 closeLetter.addEventListener(
     "click",
-    function () {
-
-        letterOverlay.classList.add(
-            "hidden"
-        );
-
-        document.body.style.overflow = "";
-
-    }
+    hideLetter
 );
 
-
-/* =========================================
-   CLICK OUTSIDE LETTER
-========================================= */
 
 letterOverlay.addEventListener(
     "click",
@@ -233,12 +356,7 @@ letterOverlay.addEventListener(
             event.target === letterOverlay
         ) {
 
-            letterOverlay.classList.add(
-                "hidden"
-            );
-
-            document.body.style.overflow =
-                "";
+            hideLetter();
 
         }
 
@@ -247,52 +365,10 @@ letterOverlay.addEventListener(
 
 
 /* =========================================
-   ESCAPE KEY
+   HOW TO USE
 ========================================= */
 
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key === "Escape" &&
-            !letterOverlay.classList.contains(
-                "hidden"
-            )
-        ) {
-
-            letterOverlay.classList.add(
-                "hidden"
-            );
-
-            document.body.style.overflow =
-                "";
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   RULES OF THE LIBRARY
-========================================= */
-
-const infoButton =
-    document.querySelector(".info-btn");
-
-const rulesOverlay =
-    document.getElementById("rulesOverlay");
-
-const closeRules =
-    document.getElementById("closeRules");
-
-
-/* =========================================
-   OPEN RULES
-========================================= */
-
-infoButton.addEventListener(
+howToUseBtn.addEventListener(
     "click",
     function () {
 
@@ -303,10 +379,6 @@ infoButton.addEventListener(
     }
 );
 
-
-/* =========================================
-   CLOSE RULES BUTTON
-========================================= */
 
 closeRules.addEventListener(
     "click",
@@ -319,10 +391,6 @@ closeRules.addEventListener(
     }
 );
 
-
-/* =========================================
-   CLICK OUTSIDE RULES
-========================================= */
 
 rulesOverlay.addEventListener(
     "click",
@@ -340,3 +408,447 @@ rulesOverlay.addEventListener(
 
     }
 );
+
+
+/* =========================================
+   OPEN COMPOSER
+========================================= */
+
+function openComposer(
+    presetBookKey
+) {
+
+    if (!composerOverlay) return;
+
+    composerFeedback.textContent =
+        "";
+
+    let selectedBook =
+        presetBookKey ||
+        composerBookSelect.value;
+
+    if (!selectedBook) {
+
+        selectedBook =
+            books[0].textContent.trim();
+
+    }
+
+    composerBookSelect.value =
+        selectedBook;
+
+
+    const existingLetter =
+        userLettersMap[selectedBook];
+
+
+    if (existingLetter) {
+
+        composerTitleInput.value =
+            existingLetter.title || "";
+
+        composerContentTextarea.value =
+            existingLetter.content
+                .replace(/<br\s*\/?>/gi, "\n")
+                .replace(/<\/p>/gi, "\n")
+                .replace(/<[^>]*>/g, "")
+                .trim();
+
+    }
+
+    else {
+
+        composerTitleInput.value =
+            "";
+
+        composerContentTextarea.value =
+            "";
+
+    }
+
+
+    composerOverlay.classList.remove(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+    composerContentTextarea.focus();
+
+}
+
+
+/* =========================================
+   CLOSE COMPOSER
+========================================= */
+
+function hideComposer() {
+
+    composerOverlay.classList.add(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+writeLetterBtn.addEventListener(
+    "click",
+    function () {
+
+        openComposer();
+
+    }
+);
+
+
+editCurrentLetterBtn.addEventListener(
+    "click",
+    function () {
+
+        hideLetter();
+
+        openComposer(
+            currentSelectedBookKey
+        );
+
+    }
+);
+
+
+closeComposer.addEventListener(
+    "click",
+    hideComposer
+);
+
+
+composerOverlay.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target === composerOverlay
+        ) {
+
+            hideComposer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CHANGE BOOK IN COMPOSER
+========================================= */
+
+composerBookSelect.addEventListener(
+    "change",
+    function () {
+
+        const selectedBook =
+            this.value;
+
+        const existingLetter =
+            userLettersMap[selectedBook];
+
+
+        if (existingLetter) {
+
+            composerTitleInput.value =
+                existingLetter.title || "";
+
+            composerContentTextarea.value =
+                existingLetter.content
+                    .replace(
+                        /<br\s*\/?>/gi,
+                        "\n"
+                    )
+                    .replace(
+                        /<\/p>/gi,
+                        "\n"
+                    )
+                    .replace(
+                        /<[^>]*>/g,
+                        ""
+                    )
+                    .trim();
+
+        }
+
+        else {
+
+            composerTitleInput.value =
+                "";
+
+            composerContentTextarea.value =
+                "";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   SAVE LETTER
+========================================= */
+
+saveLetterBtn.addEventListener(
+    "click",
+    async function () {
+
+        const selectedBook =
+            composerBookSelect.value;
+
+        const rawTitle =
+            composerTitleInput.value.trim();
+
+        const rawContent =
+            composerContentTextarea.value.trim();
+
+
+        if (!rawContent) {
+
+            composerFeedback.textContent =
+                "Please write something first.";
+
+            return;
+
+        }
+
+
+        const finalTitle =
+            rawTitle ||
+            generateTitleFromContent(
+                rawContent,
+                selectedBook
+            );
+
+
+        const formattedContent =
+            `<p>${rawContent
+                .replace(/\n+/g, "</p><p>")
+                .replace(/\n/g, "<br>")}</p>`;
+
+
+        const payload = {
+
+            user_id:
+                currentUser.id,
+
+            book_key:
+                selectedBook,
+
+            title:
+                finalTitle,
+
+            content:
+                formattedContent,
+
+            updated_at:
+                new Date().toISOString()
+
+        };
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("letters")
+            .upsert(
+                payload,
+                {
+                    onConflict:
+                        "user_id,book_key"
+                }
+            )
+            .select();
+
+
+        if (error) {
+
+            console.error(
+                "Error saving letter:",
+                error
+            );
+
+            composerFeedback.textContent =
+                "Could not save the letter.";
+
+            return;
+
+        }
+
+
+        userLettersMap[selectedBook] = {
+
+            title:
+                finalTitle,
+
+            content:
+                formattedContent
+
+        };
+
+
+        composerFeedback.textContent =
+            "Letter saved successfully!";
+
+
+        setTimeout(
+            function () {
+
+                hideComposer();
+
+                openLetterForBook(
+                    selectedBook,
+                    selectedBook === "Love You"
+                );
+
+            },
+            500
+        );
+
+    }
+);
+
+
+/* =========================================
+   LOG OUT
+========================================= */
+
+logoutBtn.addEventListener(
+    "click",
+    async function () {
+
+        await supabaseClient.auth.signOut();
+
+        sessionStorage.removeItem(
+            "the_library_unlocked"
+        );
+
+        window.location.href =
+            "indexx.html";
+
+    }
+);
+
+
+/* =========================================
+   ESCAPE KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key !== "Escape") return;
+
+
+        if (
+            composerOverlay &&
+            !composerOverlay.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            hideComposer();
+
+            return;
+
+        }
+
+
+        if (
+            rulesOverlay &&
+            !rulesOverlay.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            rulesOverlay.classList.add(
+                "hidden"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            letterOverlay &&
+            !letterOverlay.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            hideLetter();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   START LIBRARY
+========================================= */
+
+async function initializeLibrary() {
+
+    populateBookSelect();
+
+
+    const {
+        data: {
+            session
+        },
+        error
+    } = await supabaseClient.auth.getSession();
+
+
+    if (
+        error ||
+        !session ||
+        !session.user
+    ) {
+
+        window.location.href =
+            "indexx.html";
+
+        return;
+
+    }
+
+
+    const isUnlocked =
+        sessionStorage.getItem(
+            "the_library_unlocked"
+        );
+
+
+    if (!isUnlocked) {
+
+        window.location.href =
+            "indexx.html";
+
+        return;
+
+    }
+
+
+    currentUser =
+        session.user;
+
+
+    await loadUserLetters();
+
+}
+
+
+initializeLibrary();

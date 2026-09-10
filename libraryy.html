@@ -20,8 +20,8 @@
 
 
     <!-- =========================================
-     HEADER
-========================================= -->
+         HEADER
+    ========================================= -->
 
     <header>
 
@@ -33,8 +33,8 @@
 
 
     <!-- =========================================
-     LEFT PANEL
-========================================= -->
+         LEFT PANEL
+    ========================================= -->
 
     <div class="left-panel">
 
@@ -61,14 +61,25 @@
 
 
     <!-- =========================================
-     RIGHT PANEL
-========================================= -->
+         RIGHT PANEL
+    ========================================= -->
 
     <div class="right-panel">
 
-        <button class="info-btn">
+        <button id="howToUseBtn" class="info-btn">
             How to use
         </button>
+
+        <button id="writeLetterBtn" class="info-btn action-btn">
+            ✍️ Write a Letter
+        </button>
+
+        <button id="logoutBtn" class="info-btn logout-btn">
+            Log Out
+        </button>
+
+
+        <!-- RULES -->
 
         <div id="rulesOverlay" class="rules-overlay hidden">
 
@@ -122,8 +133,8 @@
 
 
     <!-- =========================================
-     BOOKSHELF
-========================================= -->
+         BOOKSHELF
+    ========================================= -->
 
     <main>
 
@@ -231,8 +242,8 @@
 
 
     <!-- =========================================
-     BOTTOM DECORATIONS
-========================================= -->
+         BOTTOM DECORATIONS
+    ========================================= -->
 
     <div class="bottom-left">
 
@@ -254,8 +265,8 @@
 
 
     <!-- =========================================
-     LETTER POPUP
-========================================= -->
+         LETTER POPUP (READER)
+    ========================================= -->
 
     <div id="letterOverlay" class="letter-overlay hidden">
 
@@ -281,10 +292,95 @@
 
             </div>
 
+            <div class="letter-footer-actions">
+
+                <button id="editCurrentLetterBtn" type="button" class="composer-btn">
+                    Edit This Letter
+                </button>
+
+            </div>
+
         </div>
 
     </div>
 
+
+    <!-- =========================================
+         LETTER COMPOSER MODAL
+    ========================================= -->
+
+    <div id="composerOverlay" class="rules-overlay hidden">
+
+        <div class="rules-card composer-card">
+
+            <button id="closeComposer" class="close-rules">
+                ×
+            </button>
+
+            <p class="rules-heading">
+                A Letter for The Library
+            </p>
+
+            <div class="rules-divider"></div>
+
+            <div class="composer-field">
+
+                <label for="composerBookSelect">
+                    Choose Book / Date:
+                </label>
+
+                <select id="composerBookSelect">
+                    <!-- Populated dynamically via JS -->
+                </select>
+
+            </div>
+
+
+            <div class="composer-field">
+
+                <label for="composerTitleInput">
+                    Book / Letter Title (Optional):
+                </label>
+
+                <input type="text" id="composerTitleInput" placeholder="Leave blank to automatically create a title"
+                    autocomplete="off">
+
+            </div>
+
+
+            <div class="composer-field">
+
+                <label for="composerContentTextarea">
+                    Letter Content:
+                </label>
+
+                <textarea id="composerContentTextarea" rows="8"
+                    placeholder="Write your heartfelt words here..."></textarea>
+
+            </div>
+
+
+            <div class="composer-actions">
+
+                <button id="saveLetterBtn" type="button" class="composer-btn">
+                    Save Letter to Library
+                </button>
+
+            </div>
+
+
+            <p id="composerFeedback" class="composer-feedback"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SCRIPTS
+    ========================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="libraryy.js"></script>
 
