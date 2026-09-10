@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Pinyon+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=UnifrakturCook:wght@700&display=swap');
 
 * {
     margin: 0;
@@ -75,6 +75,8 @@ body {
 
 .letter-paper h1 {
 
+    font-family: 'Allura', cursive;
+
     font-size: 2.5rem;
 
     margin-bottom: 40px;
@@ -83,7 +85,7 @@ body {
 
 .letter-content {
 
-    font-family: 'Pinyon Script', 'Alex Brush', cursive;
+    font-family: 'Allura', cursive;
 
     font-size: 1.65rem;
 
