@@ -183,7 +183,10 @@ signUpBtn.addEventListener(
 
 
         authMessage.textContent =
-            "Account created! Check your email to confirm your account. 🤎";
+            "Account created! Please check your Gmail and verify your email before continuing. 🤎";
+
+        signUpBtn.disabled = true;
+        loginBtn.disabled = true;
 
     }
 );
