@@ -34,7 +34,7 @@ BEGIN
     -- 2. If no password exists or verification fails, reject
     IF stored_hash IS NULL OR (
         stored_hash != crypt(library_password_attempt, stored_hash)
-        AND stored_hash != extensions.crypt(library_password_attempt, stored_hash)
+        AND stored_hash != library_password_attempt
     ) THEN
         RAISE EXCEPTION 'Incorrect Library password.';
     END IF;

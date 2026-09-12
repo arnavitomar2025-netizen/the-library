@@ -414,11 +414,11 @@ async function checkPassword() {
 
             console.error("Shared library error:", verifyError);
 
-            if (verifyError.message && (
-                verifyError.message.includes("Incorrect") ||
-                verifyError.message.includes("password")
-            )) {
+            if (verifyError.message === "Incorrect Library password.") {
                 error.textContent = "Incorrect Library password.";
+            } else if (verifyError.message && verifyError.message.includes("Could not find the function")) {
+                error.textContent =
+                    "Shared Library is not set up yet. The owner needs to run the SQL setup in Supabase.";
             } else {
                 error.textContent = verifyError.message || "Failed to unlock shared library.";
             }
