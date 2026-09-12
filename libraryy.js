@@ -241,37 +241,10 @@ function generateTitleFromContent(
     bookKey
 ) {
 
-    const plainText =
-        content
-            .replace(/<[^>]*>/g, "")
-            .replace(/\s+/g, " ")
-            .trim();
-
-    if (!plainText) {
-
-        return "A little letter for " + bookKey;
-
-    }
-
-    const firstSentence =
-        plainText.split(/[.!?]/)[0].trim();
-
-    if (
-        firstSentence &&
-        firstSentence.length <= 50
-    ) {
-
-        return firstSentence;
-
-    }
-
-    if (plainText.length <= 45) {
-
-        return plainText;
-
-    }
-
-    return plainText.slice(0, 45) + "...";
+    // Analyzing theme and emotion without fragmenting sentences requires
+    // an external AI/ML model. As per requirements, we do not add external
+    // APIs or expose API keys; the title is left blank so the user can enter their own.
+    return "";
 
 }
 
@@ -344,6 +317,9 @@ function openLetterForBook(
             letterTitle.textContent =
                 letter.title || "Love You";
 
+            letterTitle.style.display =
+                "block";
+
             letterContent.innerHTML =
                 letter.content;
 
@@ -353,6 +329,9 @@ function openLetterForBook(
 
             letterTitle.textContent =
                 "Love You";
+
+            letterTitle.style.display =
+                "block";
 
             letterContent.innerHTML = `
                 <p>
@@ -377,9 +356,21 @@ function openLetterForBook(
 
         if (letter) {
 
+            const hasTitle =
+                Boolean(
+                    letter.title &&
+                    letter.title.trim()
+                );
+
             letterTitle.textContent =
-                letter.title ||
-                "A little letter for you";
+                hasTitle
+                    ? letter.title
+                    : "";
+
+            letterTitle.style.display =
+                hasTitle
+                    ? "block"
+                    : "none";
 
             letterContent.innerHTML =
                 letter.content;
@@ -391,6 +382,9 @@ function openLetterForBook(
 
             letterTitle.textContent =
                 "A little letter for you";
+
+            letterTitle.style.display =
+                "block";
 
             letterContent.innerHTML = `
                 <p>
