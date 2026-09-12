@@ -47,6 +47,12 @@ const letterContent =
 const editCurrentLetterBtn =
     document.getElementById("editCurrentLetterBtn");
 
+const deleteCurrentLetterBtn =
+    document.getElementById("deleteCurrentLetterBtn");
+
+const letterActionFeedback =
+    document.getElementById("letterActionFeedback");
+
 const howToUseBtn =
     document.getElementById("howToUseBtn");
 
@@ -322,7 +328,7 @@ async function loadUserLetters() {
     } = await supabaseClient
         .from("letters")
         .select(
-            "book_key, title, content"
+            "id, book_key, title, content"
         );
 
     if (error) {
@@ -339,6 +345,8 @@ async function loadUserLetters() {
     data.forEach(function (item) {
 
         userLettersMap[item.book_key] = {
+
+            id: item.id,
 
             title: item.title,
 
@@ -363,9 +371,23 @@ function openLetterForBook(
     currentSelectedBookKey =
         bookKey;
 
+    if (letterActionFeedback) {
+        letterActionFeedback.textContent = "";
+    }
+
+    const openedLetter =
+        userLettersMap[bookKey];
+
     if (editCurrentLetterBtn) {
         editCurrentLetterBtn.style.display =
-            isReadOnly ? "none" : "block";
+            isReadOnly ? "none" : "inline-block";
+    }
+
+    if (deleteCurrentLetterBtn) {
+        deleteCurrentLetterBtn.style.display =
+            (!isReadOnly && currentUser && openedLetter && openedLetter.id)
+                ? "inline-block"
+                : "none";
     }
 
     if (isSpecial) {
@@ -477,6 +499,10 @@ function openLetterForBook(
 ========================================= */
 
 function hideLetter() {
+
+    if (letterActionFeedback) {
+        letterActionFeedback.textContent = "";
+    }
 
     letterOverlay.classList.add(
         "hidden"
@@ -709,6 +735,82 @@ editCurrentLetterBtn.addEventListener(
 );
 
 
+/* =========================================
+   DELETE LETTER (OWNER ONLY)
+========================================= */
+
+if (deleteCurrentLetterBtn) {
+
+    deleteCurrentLetterBtn.addEventListener(
+        "click",
+        async function () {
+
+            if (isReadOnly || !currentUser) {
+                if (letterActionFeedback) {
+                    letterActionFeedback.textContent =
+                        "You do not have permission to delete this letter.";
+                }
+                return;
+            }
+
+            const bookKey = currentSelectedBookKey;
+            if (!bookKey) return;
+
+            const letter = userLettersMap[bookKey];
+            if (!letter || !letter.id) {
+                if (letterActionFeedback) {
+                    letterActionFeedback.textContent =
+                        "No saved record found to delete.";
+                }
+                return;
+            }
+
+            const confirmed = window.confirm(
+                "Are you sure you want to delete this letter? This cannot be undone."
+            );
+
+            if (!confirmed) return;
+
+            deleteCurrentLetterBtn.disabled = true;
+            if (letterActionFeedback) {
+                letterActionFeedback.textContent = "Deleting letter...";
+            }
+
+            const { error: deleteError } =
+                await supabaseClient
+                    .from("letters")
+                    .delete()
+                    .eq("id", letter.id)
+                    .eq("user_id", currentUser.id);
+
+            deleteCurrentLetterBtn.disabled = false;
+
+            if (deleteError) {
+                console.error("Error deleting letter:", deleteError);
+                if (letterActionFeedback) {
+                    letterActionFeedback.textContent =
+                        deleteError.message || "Could not delete the letter. Please try again.";
+                } else {
+                    alert("Could not delete the letter: " + (deleteError.message || "Unknown error"));
+                }
+                return;
+            }
+
+            // Successfully deleted from database
+            delete userLettersMap[bookKey];
+
+            // 1. Close the letter view
+            hideLetter();
+
+            // 2. Remove the corresponding book from the Library immediately
+            renderBooks();
+
+        }
+    );
+
+}
+
+
 closeComposer.addEventListener(
     "click",
     hideComposer
@@ -894,7 +996,7 @@ saveLetterBtn.addEventListener(
                         "user_id,book_key"
                 }
             )
-            .select();
+            .select("id, book_key, title, content");
 
 
         if (error) {
@@ -911,8 +1013,15 @@ saveLetterBtn.addEventListener(
 
         }
 
+        const savedId =
+            (data && data[0] && data[0].id)
+                ? data[0].id
+                : (userLettersMap[selectedBook] ? userLettersMap[selectedBook].id : null);
 
         userLettersMap[selectedBook] = {
+
+            id:
+                savedId,
 
             title:
                 finalTitle,
@@ -1104,6 +1213,9 @@ async function initializeLibrary() {
         }
         if (editCurrentLetterBtn) {
             editCurrentLetterBtn.style.display = "none";
+        }
+        if (deleteCurrentLetterBtn) {
+            deleteCurrentLetterBtn.style.display = "none";
         }
         if (shareLibraryBtn) {
             shareLibraryBtn.style.display = "none";
