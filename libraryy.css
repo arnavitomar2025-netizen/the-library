@@ -1523,6 +1523,28 @@ footer {
     font-style: italic;
 }
 
+.composer-field input[type="date"] {
+    cursor: pointer;
+}
+
+.composer-field input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.75;
+    filter: invert(20%) sepia(30%) saturate(800%) hue-rotate(345deg);
+}
+
+.composer-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.composer-date-hint {
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7b5838;
+    margin-top: 5px;
+}
+
 /* Antique styled dropdown */
 .composer-field select {
     appearance: none;

@@ -233,15 +233,26 @@
 
             <div class="rules-divider"></div>
 
-            <div class="composer-field">
+            <div class="composer-field" id="composerDateFieldGroup">
 
-                <label for="composerBookSelect">
-                    Choose Book / Date:
+                <label for="composerDateInput">
+                    Choose Date:
                 </label>
 
-                <select id="composerBookSelect">
-                    <!-- Populated dynamically via JS -->
-                </select>
+                <input type="date" id="composerDateInput" required>
+
+                <p id="composerDateHint" class="composer-date-hint"></p>
+
+            </div>
+
+
+            <div class="composer-field hidden" id="composerSpecialFieldGroup">
+
+                <label for="composerSpecialInput">
+                    Special Book:
+                </label>
+
+                <input type="text" id="composerSpecialInput" value="Love You" readonly>
 
             </div>
 

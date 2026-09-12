@@ -65,8 +65,17 @@ const composerOverlay =
 const closeComposer =
     document.getElementById("closeComposer");
 
-const composerBookSelect =
-    document.getElementById("composerBookSelect");
+const composerDateFieldGroup =
+    document.getElementById("composerDateFieldGroup");
+
+const composerSpecialFieldGroup =
+    document.getElementById("composerSpecialFieldGroup");
+
+const composerDateInput =
+    document.getElementById("composerDateInput");
+
+const composerDateHint =
+    document.getElementById("composerDateHint");
 
 const composerTitleInput =
     document.getElementById("composerTitleInput");
@@ -91,7 +100,7 @@ const logoutBtn =
 const BOOK_COLORS =
     ["burgundy", "green", "plum", "blue", "brown"];
 
-const BOOKS_PER_SHELF = 13;
+const BOOKS_PER_SHELF = 11;
 
 
 /* =========================================
@@ -126,10 +135,15 @@ function renderBooks() {
         };
 
         function parseKey(key) {
-            const parts = key.trim().split(" ");
+            const parts = key.trim().replace(/'/g, "").split(" ");
             const day = parseInt(parts[0], 10) || 0;
             const mon = months[parts[1]] || 0;
-            return mon * 100 + day;
+            let year = 2026;
+            if (parts[2]) {
+                const parsedYear = parseInt(parts[2], 10);
+                year = parsedYear < 100 ? 2000 + parsedYear : parsedYear;
+            }
+            return (year * 10000) + (mon * 100) + day;
         }
 
         return parseKey(a) - parseKey(b);
@@ -202,33 +216,62 @@ function renderBooks() {
 
 
 /* =========================================
-   POPULATE BOOK SELECTOR
+   DATE UTILITIES & HELPERS
 ========================================= */
 
+function formatDateKey(isoDate) {
+    if (!isoDate) return "";
+    const [y, m, d] = isoDate.split("-");
+    const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    const monthIndex = parseInt(m, 10) - 1;
+    const day = parseInt(d, 10);
+    const thisYear = new Date().getFullYear().toString();
+    if (y && y !== thisYear) {
+        return `${day} ${months[monthIndex]} '${y.slice(2)}`;
+    }
+    return `${day} ${months[monthIndex]}`;
+}
+
+function dateKeyToIso(dateKey) {
+    if (!dateKey) return "";
+    const parts = dateKey.trim().replace(/'/g, "").split(" ");
+    if (parts.length >= 2) {
+        const day = parseInt(parts[0], 10);
+        const months = {
+            Jan: "01", Feb: "02", Mar: "03", Apr: "04",
+            May: "05", Jun: "06", Jul: "07", Aug: "08",
+            Sep: "09", Oct: "10", Nov: "11", Dec: "12"
+        };
+        const month = months[parts[1]];
+        let year = new Date().getFullYear();
+        if (parts[2]) {
+            const parsedYear = parseInt(parts[2], 10);
+            year = parsedYear < 100 ? 2000 + parsedYear : parsedYear;
+        }
+        if (day && month) {
+            const paddedDay = day < 10 ? "0" + day : "" + day;
+            return `${year}-${month}-${paddedDay}`;
+        }
+    }
+    return "";
+}
+
+function updateDateHint() {
+    if (!composerDateHint || !composerDateInput) return;
+    const isoVal = composerDateInput.value;
+    if (!isoVal) {
+        composerDateHint.textContent = "";
+        return;
+    }
+    const label = formatDateKey(isoVal);
+    composerDateHint.textContent = `Book spine label: ${label}`;
+}
+
 function populateBookSelect() {
-
-    if (!composerBookSelect) return;
-
-    composerBookSelect.innerHTML = "";
-
-    const renderedBooks =
-        document.querySelectorAll(".book");
-
-    renderedBooks.forEach(function (book) {
-
-        const option =
-            document.createElement("option");
-
-        option.value =
-            book.textContent.trim();
-
-        option.textContent =
-            book.textContent.trim();
-
-        composerBookSelect.appendChild(option);
-
-    });
-
+    // Dynamic books are rendered directly on the shelf
 }
 
 
@@ -497,6 +540,8 @@ rulesOverlay.addEventListener(
    OPEN COMPOSER
 ========================================= */
 
+let isSpecialComposerMode = false;
+
 function openComposer(
     presetBookKey
 ) {
@@ -506,25 +551,54 @@ function openComposer(
     composerFeedback.textContent =
         "";
 
-    let selectedBook =
-        presetBookKey ||
-        composerBookSelect.value;
+    isSpecialComposerMode =
+        (presetBookKey === "Love You");
 
-    if (!selectedBook) {
+    if (isSpecialComposerMode) {
 
-        selectedBook =
-            composerBookSelect.options[0]
-                ? composerBookSelect.options[0].value
-                : "";
+        if (composerDateFieldGroup) {
+            composerDateFieldGroup.classList.add("hidden");
+        }
+
+        if (composerSpecialFieldGroup) {
+            composerSpecialFieldGroup.classList.remove("hidden");
+        }
+
+    } else {
+
+        if (composerDateFieldGroup) {
+            composerDateFieldGroup.classList.remove("hidden");
+        }
+
+        if (composerSpecialFieldGroup) {
+            composerSpecialFieldGroup.classList.add("hidden");
+        }
+
+        let isoDate = "";
+
+        if (presetBookKey) {
+            isoDate = dateKeyToIso(presetBookKey);
+        }
+
+        if (!isoDate) {
+            isoDate = new Date().toISOString().split("T")[0];
+        }
+
+        if (composerDateInput) {
+            composerDateInput.value = isoDate;
+        }
+
+        updateDateHint();
 
     }
 
-    composerBookSelect.value =
-        selectedBook;
-
+    const currentKey =
+        isSpecialComposerMode
+            ? "Love You"
+            : (composerDateInput ? formatDateKey(composerDateInput.value) : "");
 
     const existingLetter =
-        userLettersMap[selectedBook];
+        userLettersMap[currentKey];
 
 
     if (existingLetter) {
@@ -538,6 +612,11 @@ function openComposer(
                 .replace(/<\/p>/gi, "\n")
                 .replace(/<[^>]*>/g, "")
                 .trim();
+
+        if (presetBookKey) {
+            composerFeedback.textContent =
+                `Editing letter for ${currentKey}`;
+        }
 
     }
 
@@ -627,55 +706,67 @@ composerOverlay.addEventListener(
 
 
 /* =========================================
-   CHANGE BOOK IN COMPOSER
+   CHANGE DATE IN COMPOSER
 ========================================= */
 
-composerBookSelect.addEventListener(
-    "change",
-    function () {
+if (composerDateInput) {
 
-        const selectedBook =
-            this.value;
+    composerDateInput.addEventListener(
+        "change",
+        function () {
 
-        const existingLetter =
-            userLettersMap[selectedBook];
+            updateDateHint();
+
+            const currentKey =
+                formatDateKey(this.value);
+
+            const existingLetter =
+                userLettersMap[currentKey];
 
 
-        if (existingLetter) {
+            if (existingLetter) {
 
-            composerTitleInput.value =
-                existingLetter.title || "";
+                composerTitleInput.value =
+                    existingLetter.title || "";
 
-            composerContentTextarea.value =
-                existingLetter.content
-                    .replace(
-                        /<br\s*\/?>/gi,
-                        "\n"
-                    )
-                    .replace(
-                        /<\/p>/gi,
-                        "\n"
-                    )
-                    .replace(
-                        /<[^>]*>/g,
-                        ""
-                    )
-                    .trim();
+                composerContentTextarea.value =
+                    existingLetter.content
+                        .replace(
+                            /<br\s*\/?>/gi,
+                            "\n"
+                        )
+                        .replace(
+                            /<\/p>/gi,
+                            "\n"
+                        )
+                        .replace(
+                            /<[^>]*>/g,
+                            ""
+                        )
+                        .trim();
+
+                composerFeedback.textContent =
+                    `Existing letter for ${currentKey} loaded for editing`;
+
+            }
+
+            else {
+
+                composerTitleInput.value =
+                    "";
+
+                composerContentTextarea.value =
+                    "";
+
+                composerFeedback.textContent =
+                    "";
+
+            }
 
         }
+    );
 
-        else {
-
-            composerTitleInput.value =
-                "";
-
-            composerContentTextarea.value =
-                "";
-
-        }
-
-    }
-);
+}
 
 
 /* =========================================
@@ -685,9 +776,6 @@ composerBookSelect.addEventListener(
 saveLetterBtn.addEventListener(
     "click",
     async function () {
-
-        const selectedBook =
-            composerBookSelect.value;
 
         const rawTitle =
             composerTitleInput.value.trim();
@@ -706,12 +794,34 @@ saveLetterBtn.addEventListener(
         }
 
 
+        let selectedBook = "";
+
+        if (isSpecialComposerMode) {
+
+            selectedBook = "Love You";
+
+        } else {
+
+            const dateVal =
+                composerDateInput ? composerDateInput.value : "";
+
+            if (!dateVal) {
+
+                composerFeedback.textContent =
+                    "Please choose a date for the letter.";
+
+                return;
+
+            }
+
+            selectedBook =
+                formatDateKey(dateVal);
+
+        }
+
+
         const finalTitle =
-            rawTitle ||
-            generateTitleFromContent(
-                rawContent,
-                selectedBook
-            );
+            rawTitle || "";
 
 
         const formattedContent =
@@ -779,6 +889,10 @@ saveLetterBtn.addEventListener(
                 formattedContent
 
         };
+
+
+        // Dynamically re-render books onto shelves
+        renderBooks();
 
 
         composerFeedback.textContent =
