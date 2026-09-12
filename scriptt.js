@@ -66,6 +66,12 @@ const createPasswordMessage =
 const passwordCard =
     document.getElementById("passwordCard");
 
+const passwordCardHeading =
+    document.getElementById("passwordCardHeading");
+
+const passwordCardQuestion =
+    document.getElementById("passwordCardQuestion");
+
 const welcomeNote =
     document.querySelector(".welcome-note");
 
@@ -80,6 +86,43 @@ const enterLibraryBtn =
 
 const error =
     document.getElementById("errorMessage");
+
+/* =========================================
+   CHECK FOR SHARED LINK (PERSON X ACCESS)
+========================================= */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const sharedLibraryId =
+    urlParams.get("library") || urlParams.get("share");
+
+if (sharedLibraryId) {
+
+    if (accountCard) {
+        accountCard.style.display = "none";
+    }
+
+    if (createPasswordCard) {
+        createPasswordCard.style.display = "none";
+    }
+
+    if (passwordCardHeading) {
+        passwordCardHeading.textContent =
+            "SHARED LIBRARY";
+    }
+
+    if (passwordCardQuestion) {
+        passwordCardQuestion.textContent =
+            "This is a private collection of letters. Enter the Library password to unlock:";
+    }
+
+    if (passwordCard) {
+        passwordCard.classList.remove("hidden");
+        passwordCard.style.display = "flex";
+    }
+
+}
 
 
 /* =========================================
@@ -355,6 +398,65 @@ async function checkPassword() {
     }
 
 
+    if (sharedLibraryId) {
+
+        // Person X entering Person Y's library via shared RPC
+        const { data, error: verifyError } =
+            await supabaseClient.rpc(
+                "read_shared_library",
+                {
+                    library_owner_id: sharedLibraryId,
+                    library_password_attempt: entered
+                }
+            );
+
+        if (verifyError) {
+
+            console.error("Shared library error:", verifyError);
+
+            if (verifyError.message && (
+                verifyError.message.includes("Incorrect") ||
+                verifyError.message.includes("password")
+            )) {
+                error.textContent = "Incorrect Library password.";
+            } else {
+                error.textContent = verifyError.message || "Failed to unlock shared library.";
+            }
+
+            return;
+
+        }
+
+        // Successfully unlocked shared read-only library
+        sessionStorage.setItem(
+            "the_library_unlocked",
+            "true"
+        );
+        sessionStorage.setItem(
+            "the_library_read_only",
+            "true"
+        );
+        sessionStorage.setItem(
+            "the_library_shared_owner",
+            sharedLibraryId
+        );
+        sessionStorage.setItem(
+            "the_library_shared_letters",
+            JSON.stringify(data || [])
+        );
+
+        passwordCard.style.display =
+            "none";
+
+        welcomeNote.classList.remove("hidden");
+        welcomeNote.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
     const { data, error: verifyError } =
         await supabaseClient.rpc(
             "verify_library_password",
@@ -378,6 +480,16 @@ async function checkPassword() {
         sessionStorage.setItem(
             "the_library_unlocked",
             "true"
+        );
+
+        sessionStorage.removeItem(
+            "the_library_read_only"
+        );
+        sessionStorage.removeItem(
+            "the_library_shared_owner"
+        );
+        sessionStorage.removeItem(
+            "the_library_shared_letters"
         );
 
         passwordCard.style.display =
@@ -434,8 +546,17 @@ enterLibraryBtn.addEventListener(
     "click",
     function () {
 
-        window.location.href =
-            "libraryy.html";
+        if (sharedLibraryId) {
+
+            window.location.href =
+                `libraryy.html?library=${encodeURIComponent(sharedLibraryId)}`;
+
+        } else {
+
+            window.location.href =
+                "libraryy.html";
+
+        }
 
     }
 );

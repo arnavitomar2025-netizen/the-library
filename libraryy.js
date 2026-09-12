@@ -59,6 +59,9 @@ const closeRules =
 const writeLetterBtn =
     document.getElementById("writeLetterBtn");
 
+const shareLibraryBtn =
+    document.getElementById("shareLibraryBtn");
+
 const composerOverlay =
     document.getElementById("composerOverlay");
 
@@ -91,6 +94,19 @@ const composerFeedback =
 
 const logoutBtn =
     document.getElementById("logoutBtn");
+
+/* =========================================
+   READ-ONLY / SHARED ACCESS DETECTION
+========================================= */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const sharedLibraryId =
+    urlParams.get("library") || urlParams.get("share") || sessionStorage.getItem("the_library_shared_owner");
+
+let isReadOnly =
+    (sessionStorage.getItem("the_library_read_only") === "true") && Boolean(sharedLibraryId);
 
 
 /* =========================================
@@ -347,6 +363,10 @@ function openLetterForBook(
     currentSelectedBookKey =
         bookKey;
 
+    if (editCurrentLetterBtn) {
+        editCurrentLetterBtn.style.display =
+            isReadOnly ? "none" : "block";
+    }
 
     if (isSpecial) {
 
@@ -546,6 +566,8 @@ function openComposer(
     presetBookKey
 ) {
 
+    if (isReadOnly) return;
+
     if (!composerOverlay) return;
 
     composerFeedback.textContent =
@@ -663,6 +685,8 @@ writeLetterBtn.addEventListener(
     "click",
     function () {
 
+        if (isReadOnly) return;
+
         openComposer();
 
     }
@@ -672,6 +696,8 @@ writeLetterBtn.addEventListener(
 editCurrentLetterBtn.addEventListener(
     "click",
     function () {
+
+        if (isReadOnly) return;
 
         hideLetter();
 
@@ -776,6 +802,12 @@ if (composerDateInput) {
 saveLetterBtn.addEventListener(
     "click",
     async function () {
+
+        if (isReadOnly) {
+            composerFeedback.textContent =
+                "This is a read-only shared library. Editing is disabled.";
+            return;
+        }
 
         const rawTitle =
             composerTitleInput.value.trim();
@@ -918,18 +950,66 @@ saveLetterBtn.addEventListener(
 
 
 /* =========================================
-   LOG OUT
+   SHARE LIBRARY (OWNER FEATURE)
+========================================= */
+
+if (shareLibraryBtn) {
+
+    shareLibraryBtn.addEventListener(
+        "click",
+        function () {
+
+            if (!currentUser) return;
+
+            const shareUrl =
+                `${window.location.origin}/indexx.html?library=${encodeURIComponent(currentUser.id)}`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+
+                navigator.clipboard.writeText(shareUrl)
+                    .then(function () {
+                        alert("Library link copied to clipboard! 🤎\n\nShare this link and your Library password with your loved one. They will enter in read-only mode.");
+                    })
+                    .catch(function () {
+                        prompt("Copy this link to share your Library:", shareUrl);
+                    });
+
+            } else {
+
+                prompt("Copy this link to share your Library:", shareUrl);
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   LOG OUT / EXIT
 ========================================= */
 
 logoutBtn.addEventListener(
     "click",
     async function () {
 
-        await supabaseClient.auth.signOut();
-
         sessionStorage.removeItem(
             "the_library_unlocked"
         );
+        sessionStorage.removeItem(
+            "the_library_read_only"
+        );
+        sessionStorage.removeItem(
+            "the_library_shared_owner"
+        );
+        sessionStorage.removeItem(
+            "the_library_shared_letters"
+        );
+
+        if (!isReadOnly) {
+            await supabaseClient.auth.signOut();
+        }
 
         window.location.href =
             "indexx.html";
@@ -1000,6 +1080,63 @@ document.addEventListener(
 
 async function initializeLibrary() {
 
+    const isUnlocked =
+        sessionStorage.getItem(
+            "the_library_unlocked"
+        );
+
+
+    // --- 1. SHARED READ-ONLY ACCESS (PERSON X) ---
+    if (isReadOnly) {
+
+        if (!isUnlocked) {
+
+            window.location.href =
+                `indexx.html?library=${encodeURIComponent(sharedLibraryId)}`;
+
+            return;
+
+        }
+
+        // Hide owner actions in read-only mode
+        if (writeLetterBtn) {
+            writeLetterBtn.style.display = "none";
+        }
+        if (editCurrentLetterBtn) {
+            editCurrentLetterBtn.style.display = "none";
+        }
+        if (shareLibraryBtn) {
+            shareLibraryBtn.style.display = "none";
+        }
+        if (logoutBtn) {
+            logoutBtn.textContent = "Exit Library";
+        }
+
+        // Load shared letters from secure session storage
+        userLettersMap = {};
+        try {
+            const rawLetters =
+                sessionStorage.getItem("the_library_shared_letters");
+            const lettersArray =
+                rawLetters ? JSON.parse(rawLetters) : [];
+
+            lettersArray.forEach(function (item) {
+                userLettersMap[item.book_key] = {
+                    title: item.title,
+                    content: item.content
+                };
+            });
+        } catch (e) {
+            console.error("Error reading shared letters cache:", e);
+        }
+
+        renderBooks();
+        return;
+
+    }
+
+
+    // --- 2. FULL OWNER ACCESS (PERSON Y) ---
     const {
         data: {
             session
@@ -1022,12 +1159,6 @@ async function initializeLibrary() {
     }
 
 
-    const isUnlocked =
-        sessionStorage.getItem(
-            "the_library_unlocked"
-        );
-
-
     if (!isUnlocked) {
 
         window.location.href =
@@ -1041,6 +1172,11 @@ async function initializeLibrary() {
     currentUser =
         session.user;
 
+    // If owner opened their own shared link, clear read-only flag
+    if (sharedLibraryId && sharedLibraryId === currentUser.id) {
+        isReadOnly = false;
+        sessionStorage.removeItem("the_library_read_only");
+    }
 
     await loadUserLetters();
 
