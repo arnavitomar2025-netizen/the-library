@@ -26,11 +26,8 @@ let currentSelectedBookKey = null;
 
 
 /* =========================================
-   BOOKS + LETTER ELEMENTS
+   ELEMENTS
 ========================================= */
-
-const books =
-    document.querySelectorAll(".book");
 
 const letterOverlay =
     document.getElementById("letterOverlay");
@@ -88,6 +85,123 @@ const logoutBtn =
 
 
 /* =========================================
+   BOOK RENDERING CONFIG
+========================================= */
+
+const BOOK_COLORS =
+    ["burgundy", "green", "plum", "blue", "brown"];
+
+const BOOKS_PER_SHELF = 13;
+
+
+/* =========================================
+   RENDER BOOKS FROM SUPABASE DATA
+========================================= */
+
+function renderBooks() {
+
+    const bookshelf =
+        document.getElementById("bookshelf");
+
+    if (!bookshelf) return;
+
+    bookshelf.innerHTML = "";
+
+    // Collect all letter keys (excluding "Love You")
+    const letterKeys =
+        Object.keys(userLettersMap)
+            .filter(function (k) {
+                return k !== "Love You";
+            });
+
+    // Sort keys chronologically by their saved date
+    // (the book_key IS the display label, e.g. "7 Aug")
+    // We fall back to insertion order if we can't parse.
+    letterKeys.sort(function (a, b) {
+
+        const months = {
+            Jan: 1, Feb: 2, Mar: 3, Apr: 4,
+            May: 5, Jun: 6, Jul: 7, Aug: 8,
+            Sep: 9, Oct: 10, Nov: 11, Dec: 12
+        };
+
+        function parseKey(key) {
+            const parts = key.trim().split(" ");
+            const day = parseInt(parts[0], 10) || 0;
+            const mon = months[parts[1]] || 0;
+            return mon * 100 + day;
+        }
+
+        return parseKey(a) - parseKey(b);
+
+    });
+
+    // Always put the "Love You" special book at the end
+    const allKeys = letterKeys.concat(["Love You"]);
+
+    let shelfEl = null;
+    let countOnShelf = 0;
+    let colorIndex = 0;
+
+    allKeys.forEach(function (key, i) {
+
+        // Start a new shelf if needed
+        if (countOnShelf === 0) {
+
+            shelfEl = document.createElement("div");
+            shelfEl.className = "shelf";
+            bookshelf.appendChild(shelfEl);
+
+        }
+
+        const isSpecial = (key === "Love You");
+
+        const book =
+            document.createElement("div");
+
+        if (isSpecial) {
+
+            book.className = "book special";
+
+        } else {
+
+            const color =
+                BOOK_COLORS[colorIndex % BOOK_COLORS.length];
+
+            book.className = "book " + color;
+
+            colorIndex++;
+
+        }
+
+        book.textContent = key;
+
+        book.addEventListener(
+            "click",
+            function () {
+
+                openLetterForBook(
+                    key,
+                    isSpecial
+                );
+
+            }
+        );
+
+        shelfEl.appendChild(book);
+
+        countOnShelf++;
+
+        if (countOnShelf >= BOOKS_PER_SHELF) {
+            countOnShelf = 0;
+        }
+
+    });
+
+}
+
+
+/* =========================================
    POPULATE BOOK SELECTOR
 ========================================= */
 
@@ -97,7 +211,10 @@ function populateBookSelect() {
 
     composerBookSelect.innerHTML = "";
 
-    books.forEach(function (book) {
+    const renderedBooks =
+        document.querySelectorAll(".book");
+
+    renderedBooks.forEach(function (book) {
 
         const option =
             document.createElement("option");
@@ -297,34 +414,6 @@ function openLetterForBook(
 }
 
 
-/* =========================================
-   OPEN BOOK
-========================================= */
-
-books.forEach(function (book) {
-
-    book.addEventListener(
-        "click",
-        function () {
-
-            const bookKey =
-                this.textContent.trim();
-
-            const isSpecial =
-                this.classList.contains(
-                    "special"
-                );
-
-            openLetterForBook(
-                bookKey,
-                isSpecial
-            );
-
-        }
-    );
-
-});
-
 
 /* =========================================
    CLOSE LETTER
@@ -430,7 +519,9 @@ function openComposer(
     if (!selectedBook) {
 
         selectedBook =
-            books[0].textContent.trim();
+            composerBookSelect.options[0]
+                ? composerBookSelect.options[0].value
+                : "";
 
     }
 
@@ -801,9 +892,6 @@ document.addEventListener(
 
 async function initializeLibrary() {
 
-    populateBookSelect();
-
-
     const {
         data: {
             session
@@ -847,6 +935,11 @@ async function initializeLibrary() {
 
 
     await loadUserLetters();
+
+
+    renderBooks();
+
+    populateBookSelect();
 
 }
 
