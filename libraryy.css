@@ -422,6 +422,7 @@ main {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     position: relative;
@@ -448,8 +449,8 @@ main {
     cursor: pointer;
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
 
     box-shadow:
         inset 2px 0 4px rgba(255, 255, 255, 0.07),
@@ -482,17 +483,12 @@ main {
 
 /* =========================================================
    BOOK HOVER
-   NO ROTATION
+   SLOW NATURAL PULL-OUT
 ========================================================= */
 
 .book:hover {
 
-    /*
-       IMPORTANT:
-       Books only slide upward.
-       They do NOT rotate.
-    */
-    transform: translateY(-12px);
+    transform: rotate(180deg) translateY(-12px);
 
     z-index: 10;
 
@@ -501,7 +497,6 @@ main {
         inset -4px 0 7px rgba(0, 0, 0, 0.18),
         0 15px 22px rgba(0, 0, 0, 0.35);
 }
-
 
 /* =========================================================
    BOOK DECORATIVE LEATHER DETAILS
@@ -1568,9 +1563,9 @@ footer {
     border: 1px solid rgba(197, 149, 97, 0.5);
     border-radius: 5px;
     background: linear-gradient(180deg,
-        #734624 0%,
-        #573216 50%,
-        #46250e 100%);
+            #734624 0%,
+            #573216 50%,
+            #46250e 100%);
     color: #faeedb;
     font-family: Georgia, serif;
     font-size: 0.98rem;
@@ -1590,9 +1585,9 @@ footer {
 
 .composer-btn:hover {
     background: linear-gradient(180deg,
-        #8a552e 0%,
-        #6a3d1c 50%,
-        #542e13 100%);
+            #8a552e 0%,
+            #6a3d1c 50%,
+            #542e13 100%);
     box-shadow:
         0 6px 18px rgba(35, 18, 9, 0.50),
         inset 0 1px 0 rgba(255, 235, 200, 0.35);
