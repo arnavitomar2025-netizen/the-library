@@ -50,6 +50,15 @@ const editCurrentLetterBtn =
 const deleteCurrentLetterBtn =
     document.getElementById("deleteCurrentLetterBtn");
 
+const deleteConfirmOverlay =
+    document.getElementById("deleteConfirmOverlay");
+
+const cancelDeleteBtn =
+    document.getElementById("cancelDeleteBtn");
+
+const confirmDeleteBtn =
+    document.getElementById("confirmDeleteBtn");
+
 const letterActionFeedback =
     document.getElementById("letterActionFeedback");
 
@@ -495,10 +504,29 @@ function openLetterForBook(
 
 
 /* =========================================
+   DELETE CONFIRMATION MODAL HELPERS
+========================================= */
+
+function showDeleteConfirm() {
+    if (deleteConfirmOverlay) {
+        deleteConfirmOverlay.classList.remove("hidden");
+    }
+}
+
+function hideDeleteConfirm() {
+    if (deleteConfirmOverlay) {
+        deleteConfirmOverlay.classList.add("hidden");
+    }
+}
+
+
+/* =========================================
    CLOSE LETTER
 ========================================= */
 
 function hideLetter() {
+
+    hideDeleteConfirm();
 
     if (letterActionFeedback) {
         letterActionFeedback.textContent = "";
@@ -743,7 +771,7 @@ if (deleteCurrentLetterBtn) {
 
     deleteCurrentLetterBtn.addEventListener(
         "click",
-        async function () {
+        function () {
 
             if (isReadOnly || !currentUser) {
                 if (letterActionFeedback) {
@@ -765,16 +793,69 @@ if (deleteCurrentLetterBtn) {
                 return;
             }
 
-            const confirmed = window.confirm(
-                "Are you sure you want to delete this letter? This cannot be undone."
-            );
+            showDeleteConfirm();
 
-            if (!confirmed) return;
+        }
+    );
 
-            deleteCurrentLetterBtn.disabled = true;
-            if (letterActionFeedback) {
-                letterActionFeedback.textContent = "Deleting letter...";
+}
+
+if (cancelDeleteBtn) {
+
+    cancelDeleteBtn.addEventListener(
+        "click",
+        hideDeleteConfirm
+    );
+
+}
+
+if (deleteConfirmOverlay) {
+
+    deleteConfirmOverlay.addEventListener(
+        "click",
+        function (event) {
+            if (event.target === deleteConfirmOverlay) {
+                hideDeleteConfirm();
             }
+        }
+    );
+
+}
+
+if (confirmDeleteBtn) {
+
+    confirmDeleteBtn.addEventListener(
+        "click",
+        async function () {
+
+            if (isReadOnly || !currentUser) {
+                hideDeleteConfirm();
+                if (letterActionFeedback) {
+                    letterActionFeedback.textContent =
+                        "You do not have permission to delete this letter.";
+                }
+                return;
+            }
+
+            const bookKey = currentSelectedBookKey;
+            if (!bookKey) {
+                hideDeleteConfirm();
+                return;
+            }
+
+            const letter = userLettersMap[bookKey];
+            if (!letter || !letter.id) {
+                hideDeleteConfirm();
+                if (letterActionFeedback) {
+                    letterActionFeedback.textContent =
+                        "No saved record found to delete.";
+                }
+                return;
+            }
+
+            confirmDeleteBtn.disabled = true;
+            if (cancelDeleteBtn) cancelDeleteBtn.disabled = true;
+            confirmDeleteBtn.textContent = "Deleting...";
 
             const { error: deleteError } =
                 await supabaseClient
@@ -783,7 +864,11 @@ if (deleteCurrentLetterBtn) {
                     .eq("id", letter.id)
                     .eq("user_id", currentUser.id);
 
-            deleteCurrentLetterBtn.disabled = false;
+            confirmDeleteBtn.disabled = false;
+            if (cancelDeleteBtn) cancelDeleteBtn.disabled = false;
+            confirmDeleteBtn.textContent = "Delete";
+
+            hideDeleteConfirm();
 
             if (deleteError) {
                 console.error("Error deleting letter:", deleteError);
@@ -1136,6 +1221,20 @@ document.addEventListener(
     function (event) {
 
         if (event.key !== "Escape") return;
+
+
+        if (
+            deleteConfirmOverlay &&
+            !deleteConfirmOverlay.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            hideDeleteConfirm();
+
+            return;
+
+        }
 
 
         if (
