@@ -602,4 +602,38 @@ togglePasswordButtons.forEach(function (button) {
 
     });
 
+    /* =========================================
+   CHECK AUTH SESSION ON PAGE LOAD
+========================================= */
+
+    async function checkExistingSession() {
+
+        const { data } =
+            await supabaseClient.auth.getSession();
+
+        const session =
+            data.session;
+
+        if (!session) {
+            return;
+        }
+
+        const alreadyHasPassword =
+            await hasLibraryPassword();
+
+        if (alreadyHasPassword) {
+
+            showLibraryPassword();
+
+        } else {
+
+            showCreatePassword();
+
+        }
+
+    }
+
+
+    checkExistingSession();
+
 });
