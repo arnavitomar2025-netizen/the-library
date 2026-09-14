@@ -1883,366 +1883,397 @@ footer {
 
 
 /* =========================================================
-   DESKTOP LAYOUT REFINEMENT
+   DESKTOP LAYOUT REFINEMENT (LARGE SCREENS)
 ========================================================= */
 
-@media (min-width: 1301px) {
+@media (min-width: 1201px) {
 
     .bookshelf {
-
-        /*
-           Give the bookshelf more room while preserving
-           the side panels.
-        */
-        width: min(1100px, calc(100vw - 500px));
-
+        /* Keep bookshelf centered with ample breathing room from side panels */
+        width: min(1060px, calc(100vw - 500px));
         max-width: calc(100vw - 500px);
     }
+
 }
 
 
 /* =========================================================
-   MEDIUM SCREEN
+   LAPTOP / TABLET / MOBILE (<= 1200px)
+   Convert fixed side panels into a responsive action bar
+   so buttons and features remain accessible on all devices.
 ========================================================= */
 
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
 
-    .left-panel,
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        order: 1;
+        width: 100%;
+        text-align: center;
+        padding-top: 35px;
+    }
+
     .right-panel {
+        order: 2;
+        position: static;
+        width: 100%;
+        max-width: 900px;
+        margin: 22px auto 0;
+        padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        z-index: 10;
+    }
 
+    .right-panel .info-btn {
+        width: auto;
+        flex: 0 1 auto;
+        min-width: 135px;
+        padding: 11px 20px;
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    .right-panel .note-card {
         display: none;
     }
 
-    .bookshelf {
-
-        width: 95%;
-
-        max-width: 95%;
+    .left-panel {
+        display: none;
     }
+
+    .bottom-left,
+    .bottom-right {
+        display: none;
+    }
+
+    main {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .bookshelf {
+        width: min(1000px, 94%);
+        max-width: 94%;
+        padding: 30px 24px;
+        gap: 30px;
+    }
+
+    footer {
+        order: 4;
+        width: 100%;
+        margin: 35px 0 25px;
+    }
+
 }
 
 
 /* =========================================================
-   TABLET
+   TABLET (<= 900px)
 ========================================================= */
 
 @media (max-width: 900px) {
 
     header h1 {
-
-        font-size: 3.7rem;
+        font-size: 3.4rem;
     }
 
     .bookshelf {
-
-        padding: 30px;
-
-        gap: 30px;
+        padding: 26px 18px;
+        gap: 26px;
     }
 
     .shelf {
-
         min-height: 220px;
-
-        padding:
-            18px 14px 12px;
+        padding: 18px 14px 12px;
     }
+
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE (<= 700px)
 ========================================================= */
 
 @media (max-width: 700px) {
 
     header {
-
-        padding-top: 25px;
+        padding-top: 22px;
     }
 
     header h1 {
-
-        font-size: 3rem;
-
-        letter-spacing: 2px;
+        font-size: clamp(2.2rem, 7.5vw, 3rem);
+        letter-spacing: 1.5px;
     }
 
     .divider {
+        width: 90px;
+        margin: 12px auto 0;
+    }
 
-        width: 100px;
+    .right-panel {
+        margin: 16px auto 0;
+        padding: 0 12px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        max-width: 440px;
+        width: 100%;
+    }
+
+    .right-panel .info-btn {
+        width: 100%;
+        min-width: 0;
+        padding: 11px 6px;
+        font-size: 0.86rem;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     main {
-
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .bookshelf {
-
-        width: 95%;
-
-        max-width: 95%;
-
-        padding: 20px;
-
-        gap: 25px;
+        width: 96%;
+        max-width: 96%;
+        padding: 18px 10px;
+        gap: 20px;
+        border-radius: 14px;
     }
 
     .shelf {
-
         min-height: 215px;
-
         overflow-x: auto;
-
         overflow-y: hidden;
-
-        padding:
-            18px 14px 12px;
-
+        -webkit-overflow-scrolling: touch;
+        padding: 18px 12px 10px;
+        gap: 4px;
         scrollbar-width: thin;
     }
 
     .book {
-
-        flex: 0 0 48px;
+        flex: 0 0 46px;
+        width: 46px;
     }
 
     footer {
-
-        margin:
-            40px 0 30px;
+        margin: 30px 0 20px;
+        font-size: 0.95rem;
     }
 
-    .letter-overlay {
-
-        padding: 15px;
+    .letter-overlay,
+    .rules-overlay,
+    .delete-confirm-overlay {
+        padding: 12px;
     }
 
     .letter-popup {
-
-        width: 95%;
-
-        max-width: 95%;
-
+        width: 100%;
+        max-width: 96vw;
         max-height: 88vh;
-
-        padding:
-            55px 35px;
+        padding: 50px 22px 25px;
     }
 
     .letter-popup h2 {
-
-        font-size: 2rem;
-
-        margin-bottom: 25px;
+        font-size: 1.85rem;
+        margin-bottom: 20px;
     }
 
     .letter-content {
-
-        font-size: 1.45rem;
-
-        line-height: 1.85;
-    }
-
-    .rules-overlay {
-
-        padding: 15px;
-    }
-
-    .rules-card {
-
-        width: 95%;
-
-        max-width: 95%;
-
-        padding:
-            45px 35px;
-    }
-
-    .composer-card {
-
-        padding: 40px 24px 30px;
-    }
-
-    .composer-card .rules-heading {
-
-        font-size: 1.55rem;
-    }
-
-    .rules-heading {
-
-        font-size: 1.7rem;
-    }
-
-    .rule {
-
-        grid-template-columns:
-            42px 1fr;
-
-        column-gap: 10px;
-
-        font-size: 0.98rem;
-    }
-}
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 500px) {
-
-    header h1 {
-
-        font-size: 2.5rem;
-
-        letter-spacing: 1px;
-    }
-
-    .bookshelf {
-
-        padding: 15px;
-
-        border-radius: 12px;
-    }
-
-    .shelf {
-
-        min-height: 205px;
-
-        padding:
-            16px 10px 10px;
-
-        gap: 3px;
-    }
-
-    .book {
-
-        width: 44px;
-
-        flex-basis: 44px;
-
-        font-size: 0.72rem;
-    }
-
-    .book:nth-child(2n) {
-
-        height: 175px;
-    }
-
-    .book:nth-child(3n) {
-
-        height: 188px;
-    }
-
-    .book:nth-child(5n) {
-
-        height: 166px;
-    }
-
-    .letter-popup {
-
-        padding:
-            50px 25px;
-    }
-
-    .close-letter {
-
-        top: 17px;
-
-        right: 18px;
-    }
-
-    .letter-popup h2 {
-
-        font-size: 1.75rem;
-    }
-
-    .letter-content {
-
         font-size: 1.35rem;
-
         line-height: 1.75;
     }
 
     .rules-card {
-
-        padding:
-            45px 25px;
+        width: 100%;
+        max-width: 96vw;
+        max-height: 88vh;
+        padding: 42px 22px 25px;
     }
 
     .composer-card {
+        width: 100%;
+        max-width: 96vw;
+        max-height: 88vh;
+        padding: 38px 18px 24px;
+    }
 
-        padding:
-            36px 18px 24px;
+    .composer-card .rules-heading {
+        font-size: 1.45rem;
+    }
+
+    .rules-heading {
+        font-size: 1.55rem;
     }
 
     .rule {
-
-        grid-template-columns:
-            35px 1fr;
-
+        grid-template-columns: 36px 1fr;
         column-gap: 8px;
-
-        font-size: 0.93rem;
-
-        line-height: 1.7;
+        font-size: 0.94rem;
     }
 
-    .close-rules {
-
-        top: 13px;
-
-        right: 14px;
-    }
 }
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   SMALL MOBILE (<= 480px)
 ========================================================= */
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
 
     header h1 {
-
-        font-size: 2.2rem;
+        font-size: 2.35rem;
+        letter-spacing: 1px;
     }
 
     .bookshelf {
-
-        width: 97%;
-
-        max-width: 97%;
-
-        padding: 12px;
+        width: 98%;
+        max-width: 98%;
+        padding: 14px 8px;
+        border-radius: 12px;
+        gap: 16px;
     }
 
     .shelf {
-
-        min-height: 195px;
+        min-height: 205px;
+        padding: 16px 8px 8px;
+        gap: 3px;
     }
 
     .book {
+        width: 43px;
+        flex: 0 0 43px;
+        font-size: 0.7rem;
+    }
 
-        width: 41px;
+    .book:nth-child(2n) {
+        height: 174px;
+    }
 
-        flex-basis: 41px;
+    .book:nth-child(3n) {
+        height: 186px;
+    }
 
-        font-size: 0.68rem;
+    .book:nth-child(5n) {
+        height: 164px;
     }
 
     .letter-popup {
+        padding: 48px 18px 22px;
+    }
 
-        padding:
-            48px 20px;
+    .close-letter,
+    .close-rules {
+        top: 13px;
+        right: 14px;
+        font-size: 24px;
+    }
+
+    .letter-popup h2 {
+        font-size: 1.7rem;
+    }
+
+    .letter-content {
+        font-size: 1.28rem;
+        line-height: 1.7;
+    }
+
+    .letter-footer-actions {
+        margin-top: 24px;
+        padding-top: 18px;
+        gap: 10px;
+    }
+
+    .letter-footer-actions button,
+    .letter-footer-actions .composer-btn,
+    .letter-footer-actions .delete-letter-btn {
+        width: 100%;
+        min-width: 0;
+        text-align: center;
+        padding: 11px 16px;
     }
 
     .rules-card {
-
-        padding:
-            42px 20px;
+        padding: 40px 18px 22px;
     }
+
+    .composer-card {
+        padding: 34px 16px 20px;
+    }
+
+    .rule {
+        grid-template-columns: 32px 1fr;
+        column-gap: 6px;
+        font-size: 0.91rem;
+        line-height: 1.65;
+    }
+
+    .delete-confirm-card {
+        width: 100%;
+        max-width: 94vw;
+        padding: 28px 18px 20px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE (<= 360px)
+========================================================= */
+
+@media (max-width: 360px) {
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .right-panel .info-btn {
+        font-size: 0.8rem;
+        padding: 9px 4px;
+    }
+
+    .bookshelf {
+        padding: 10px 6px;
+    }
+
+    .shelf {
+        min-height: 195px;
+        padding: 12px 6px 6px;
+    }
+
+    .book {
+        width: 39px;
+        flex: 0 0 39px;
+        font-size: 0.65rem;
+    }
+
+    .letter-popup {
+        padding: 42px 14px 20px;
+    }
+
+    .rules-card {
+        padding: 38px 14px 20px;
+    }
+
+    .composer-card {
+        padding: 32px 14px 18px;
+    }
+
 }
 
 /* =========================================================
