@@ -610,38 +610,60 @@ togglePasswordButtons.forEach(function (button) {
 
     });
 
-    /* =========================================
-   CHECK AUTH SESSION ON PAGE LOAD
+});
+
+
+/* =========================================
+   CHECK AUTH SESSION ON PAGE LOAD / REDIRECT
 ========================================= */
 
-    async function checkExistingSession() {
+async function handleExistingSession(session) {
 
-        const { data } =
-            await supabaseClient.auth.getSession();
+    if (!session || sharedLibraryId) {
+        return;
+    }
 
-        const session =
-            data.session;
+    const alreadyHasPassword =
+        await hasLibraryPassword();
 
-        if (!session) {
-            return;
-        }
+    if (alreadyHasPassword) {
 
-        const alreadyHasPassword =
-            await hasLibraryPassword();
+        showLibraryPassword();
 
-        if (alreadyHasPassword) {
+    } else {
 
-            showLibraryPassword();
+        showCreatePassword();
 
-        } else {
+    }
 
-            showCreatePassword();
+}
+
+
+async function checkExistingSession() {
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+    if (data && data.session) {
+
+        await handleExistingSession(data.session);
+
+    }
+
+}
+
+
+checkExistingSession();
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function (event, session) {
+
+        if (session) {
+
+            await handleExistingSession(session);
 
         }
 
     }
-
-
-    checkExistingSession();
-
-});
+);
