@@ -131,7 +131,8 @@ let isReadOnly =
 const BOOK_COLORS =
     ["burgundy", "green", "plum", "blue", "brown"];
 
-const BOOKS_PER_SHELF = 11;
+const SHELF_CAPACITIES =
+    [11, 10, 12, 10];
 
 
 /* =========================================
@@ -186,6 +187,7 @@ function renderBooks() {
 
     let shelfEl = null;
     let countOnShelf = 0;
+    let currentShelfIndex = 0;
     let colorIndex = 0;
 
     allKeys.forEach(function (key, i) {
@@ -237,8 +239,12 @@ function renderBooks() {
 
         countOnShelf++;
 
-        if (countOnShelf >= BOOKS_PER_SHELF) {
+        const currentCapacity =
+            SHELF_CAPACITIES[currentShelfIndex % SHELF_CAPACITIES.length];
+
+        if (countOnShelf >= currentCapacity) {
             countOnShelf = 0;
+            currentShelfIndex++;
         }
 
     });
