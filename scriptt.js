@@ -234,8 +234,7 @@ signUpBtn.addEventListener(
 
 
         authMessage.textContent =
-            "Account created!"
-        "Please check your Gmail and verify your email before continuing. 🤎";
+            "Account created!Please check your Gmail and verify your email before continuing. 🤎";
 
         signUpBtn.disabled = true;
         loginBtn.disabled = true;
