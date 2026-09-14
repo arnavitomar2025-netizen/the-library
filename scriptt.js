@@ -155,6 +155,10 @@ function showCreatePassword() {
 
     accountCard.style.display = "none";
 
+    passwordCard.classList.add("hidden");
+
+    passwordCard.style.display = "none";
+
     createPasswordCard.classList.remove("hidden");
 
     createPasswordCard.style.display = "flex";
@@ -168,6 +172,10 @@ function showCreatePassword() {
 function showLibraryPassword() {
 
     accountCard.style.display = "none";
+
+    createPasswordCard.classList.add("hidden");
+
+    createPasswordCard.style.display = "none";
 
     passwordCard.classList.remove("hidden");
 
